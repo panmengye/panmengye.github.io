@@ -1,0 +1,1032 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="年少轻衫薄">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文从TLS协议的技术本质出发，系统梳理其在移动App中的发展脉络（TLS 1.0至1.3），深入拆解核心技术演变（密钥交换、加密套件、握手优化），结合App攻防场景（MITM防御、证书锁定、降级攻击），剖析典型安全风险与工程化应对策略，为移动开发者、安全架构师提供兼具理论深度与实操价值的技术指南。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TLS 在移动 App 中的技术演进、攻防实践与风险深度解析">
+<meta property="og:url" content="http://example.com/2025/05/05/TLS-%E5%9C%A8%E7%A7%BB%E5%8A%A8-App-%E4%B8%AD%E7%9A%84%E6%8A%80%E6%9C%AF%E6%BC%94%E8%BF%9B%E3%80%81%E6%94%BB%E9%98%B2%E5%AE%9E%E8%B7%B5%E4%B8%8E%E9%A3%8E%E9%99%A9%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="年少轻衫薄">
+<meta property="og:description" content="本文从TLS协议的技术本质出发，系统梳理其在移动App中的发展脉络（TLS 1.0至1.3），深入拆解核心技术演变（密钥交换、加密套件、握手优化），结合App攻防场景（MITM防御、证书锁定、降级攻击），剖析典型安全风险与工程化应对策略，为移动开发者、安全架构师提供兼具理论深度与实操价值的技术指南。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEBhnhoviXs2FFv8H6LRh0BnwuGsihAVgACrRoAAn6U8VVGQiDwBv2dMjYE.jpg">
+<meta property="article:published_time" content="2025-05-05T00:18:24.000Z">
+<meta property="article:modified_time" content="2025-09-08T00:40:30.770Z">
+<meta property="article:author" content="年少轻衫薄">
+<meta property="article:tag" content="TLS">
+<meta property="article:tag" content="移动安全">
+<meta property="article:tag" content="App安全">
+<meta property="article:tag" content="加密协议">
+<meta property="article:tag" content="中间人攻击">
+<meta property="article:tag" content="前向保密">
+<meta property="article:tag" content="证书锁定">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEBhnhoviXs2FFv8H6LRh0BnwuGsihAVgACrRoAAn6U8VVGQiDwBv2dMjYE.jpg">
+  
+  
+  
+  <title>TLS 在移动 App 中的技术演进、攻防实践与风险深度解析 - 年少轻衫薄</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>年少轻衫薄</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="TLS 在移动 App 中的技术演进、攻防实践与风险深度解析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-05 08:18" pubdate>
+          2025年5月5日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          52 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">TLS 在移动 App 中的技术演进、攻防实践与风险深度解析</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年9月8日 早上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言：TLS——移动App安全的“生命线”"><a href="#前言：TLS——移动App安全的“生命线”" class="headerlink" title="前言：TLS——移动App安全的“生命线”"></a>前言：TLS——移动App安全的“生命线”</h2><p>在移动互联网时代，App与服务器的每一次通信（如登录凭证传输、交易数据交互、用户隐私同步）都依赖于<strong>传输层安全协议（TLS）</strong> 构建信任基础。对于金融支付、证券交易、医疗健康等敏感场景的App，TLS不仅是“安全选项”，更是“合规底线”——一旦TLS配置失效或被绕过，攻击者可通过中间人攻击（MITM）窃取明文数据、篡改交易指令，直接引发资金损失或隐私泄露。</p>
+<p>然而，TLS在App中的应用并非“配置一行代码”那么简单：从早期TLS 1.0的漏洞频发，到TLS 1.3的性能与安全双重飞跃；从静态证书校验到动态证书锁定；从单纯协议依赖到“TLS+应用层加密”的纵深防御，其技术演变始终与攻防对抗同步迭代。本文将从协议本质、技术演进、攻防实践、风险防控四个维度，全面解析TLS在移动App中的技术细节与落地要点。</p>
+<h2 id="一、-TLS协议基础：理解App安全的“语言逻辑”"><a href="#一、-TLS协议基础：理解App安全的“语言逻辑”" class="headerlink" title="一、 TLS协议基础：理解App安全的“语言逻辑”"></a>一、 TLS协议基础：理解App安全的“语言逻辑”</h2><p>在深入演进与攻防前，需先明确TLS的核心定位——它并非单一“加密工具”，而是一套<strong>端到端的安全通信框架</strong>，通过分层设计实现“身份认证、数据机密性、完整性”三大目标。</p>
+<h3 id="1-1-TLS的分层结构与核心组件"><a href="#1-1-TLS的分层结构与核心组件" class="headerlink" title="1.1 TLS的分层结构与核心组件"></a>1.1 TLS的分层结构与核心组件</h3><p>TLS协议基于TCP构建，自上而下分为<strong>记录层（Record Layer）</strong> 与<strong>握手层（Handshake Layer）</strong>，两者协同完成安全通信，具体职责与技术组件如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>分层</th>
+<th>核心功能</th>
+<th>关键技术组件</th>
+<th>对移动App的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>记录层</td>
+<td>1. 接收应用层数据，按最大2^14字节分段；<br>2. 可选压缩（移动端多禁用，避免性能损耗）；<br>3. 用会话密钥加密；<br>4. 生成完整性校验值（MAC&#x2F;AEAD标签）</td>
+<td>- 对称加密算法：AES-GCM、ChaCha20-Poly1305（适配低性能设备）<br>- 哈希算法：SHA-256、SHA-384<br>- 记录格式：Type（数据类型）+ Length（长度）+ Payload（加密数据）</td>
+<td>直接影响App通信延迟与流量消耗</td>
+</tr>
+<tr>
+<td>握手层</td>
+<td>1. 协商TLS版本与加密套件；<br>2. 验证服务器身份（可选验证客户端）；<br>3. 安全交换密钥材料，生成会话密钥；<br>4. 确认握手完整性</td>
+<td>- 非对称加密算法：RSA、ECDHE、FFDHE<br>- 数字证书：X.509标准（含公钥、CA签名）<br>- 会话恢复：Session Ticket、Session ID</td>
+<td>决定App信任链安全性与重连效率</td>
+</tr>
+</tbody></table>
+<h3 id="1-2-TLS的核心安全目标与实现逻辑"><a href="#1-2-TLS的核心安全目标与实现逻辑" class="headerlink" title="1.2 TLS的核心安全目标与实现逻辑"></a>1.2 TLS的核心安全目标与实现逻辑</h3><p>TLS通过“三步流程”确保通信安全，这也是移动App依赖TLS的根本原因，每一步均对应明确的攻防对抗场景：</p>
+<h4 id="1-2-1-身份认证：防止“伪装服务器”欺骗"><a href="#1-2-1-身份认证：防止“伪装服务器”欺骗" class="headerlink" title="1.2.1 身份认证：防止“伪装服务器”欺骗"></a>1.2.1 身份认证：防止“伪装服务器”欺骗</h4><ul>
+<li><strong>实现逻辑</strong>：服务器向App发送X.509证书，App通过以下步骤校验合法性：<ol>
+<li>校验证书有效期（避免使用过期证书）；</li>
+<li>校验证书签名链：从服务器证书→中间CA证书→根CA证书，确保每一级签名均由上一级公钥验证通过（根CA证书内置在操作系统&#x2F;浏览器信任库中）；</li>
+<li>校验证书主体（Subject）：确保证书中的域名与App请求的目标域名一致（如证书域名<code>*.securities-app.com</code>匹配请求域名<code>api.securities-app.com</code>）。</li>
+</ol>
+</li>
+<li><strong>攻防点</strong>：攻击者若伪造证书（无合法CA签名），App会直接拒绝连接；但若用户手动信任“恶意根CA”（如手机被Root后安装恶意证书），则身份认证失效，需通过<strong>证书锁定</strong>补充防御。</li>
+</ul>
+<h4 id="1-2-2-密钥协商：避免“密钥明文传输”风险"><a href="#1-2-2-密钥协商：避免“密钥明文传输”风险" class="headerlink" title="1.2.2 密钥协商：避免“密钥明文传输”风险"></a>1.2.2 密钥协商：避免“密钥明文传输”风险</h4><ul>
+<li><strong>核心痛点</strong>：对称加密（如AES）效率高但密钥需双方共享，若直接传输密钥会被窃听；非对称加密（如RSA）可安全传输密钥但效率低（不适合大量数据）。</li>
+<li><strong>TLS解决方案</strong>：“非对称加密协商密钥 + 对称加密传输数据”的混合模式：<ol>
+<li>握手阶段：通过非对称加密（如ECDHE）交换“密钥材料”（如临时公钥、随机数），双方本地计算出相同的<strong>会话密钥（Session Key）</strong>；</li>
+<li>传输阶段：记录层用会话密钥（对称加密）加密业务数据，兼顾安全性与效率。</li>
+</ol>
+</li>
+<li><strong>关键改进</strong>：TLS 1.3引入的<strong>前向保密（Forward Secrecy）</strong> 机制——每次会话生成独立的临时密钥对，会话结束后立即销毁，即使服务器长期私钥泄露，历史通信数据也无法被解密。</li>
+</ul>
+<h4 id="1-2-3-数据保护：确保“不被窃听、不被篡改”"><a href="#1-2-3-数据保护：确保“不被窃听、不被篡改”" class="headerlink" title="1.2.3 数据保护：确保“不被窃听、不被篡改”"></a>1.2.3 数据保护：确保“不被窃听、不被篡改”</h4><ul>
+<li><strong>机密性</strong>：记录层用会话密钥加密数据，攻击者即使截获数据包，因无密钥无法解密明文；</li>
+<li><strong>完整性</strong>：通过AEAD（Authenticated Encryption with Associated Data）算法（如AES-GCM），在加密时生成“认证标签（Tag）”，接收方解密前需验证标签——若数据被篡改，标签验证失败，直接丢弃数据包；</li>
+<li><strong>移动端优化</strong>：TLS 1.3默认禁用压缩（避免CRIME漏洞），同时推荐使用12字节IV（初始化向量），平衡安全性与性能（相比TLS 1.2的16字节IV，减少传输开销）。</li>
+</ul>
+<h2 id="二、-TLS在移动App中的技术演进：从“能用”到“好用且安全”"><a href="#二、-TLS在移动App中的技术演进：从“能用”到“好用且安全”" class="headerlink" title="二、 TLS在移动App中的技术演进：从“能用”到“好用且安全”"></a>二、 TLS在移动App中的技术演进：从“能用”到“好用且安全”</h2><p>TLS协议自1999年TLS 1.0发布以来，经历了4次重大版本迭代（1.0→1.1→1.2→1.3），每一次演进都直指前版本的安全缺陷与性能瓶颈，同时适配移动App的“低延迟、低功耗”需求。</p>
+<h3 id="2-1-演进脉络：各版本核心差异与App应用场景"><a href="#2-1-演进脉络：各版本核心差异与App应用场景" class="headerlink" title="2.1 演进脉络：各版本核心差异与App应用场景"></a>2.1 演进脉络：各版本核心差异与App应用场景</h3><p>不同TLS版本在安全强度、性能表现、兼容性上差异显著，直接决定了其在移动App中的应用生命周期，具体对比如下表：</p>
+<table>
+<thead>
+<tr>
+<th>TLS版本</th>
+<th>发布时间</th>
+<th>核心改进（针对移动App）</th>
+<th>安全缺陷（导致淘汰）</th>
+<th>移动App应用阶段</th>
+<th>2025年现状（合规要求）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0</td>
+<td>1999年</td>
+<td>首次标准化TLS，支持RSA密钥交换、AES加密</td>
+<td>1. 存在BEAST漏洞（可窃取Cookie）；<br>2. 支持弱加密套件（如RC4、DES）；<br>3. 无前向保密</td>
+<td>2000-2015年（早期移动互联网）</td>
+<td>全球主流合规要求禁用（如PCI DSS、GDPR），Android 10+、iOS 12+默认不支持</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>2006年</td>
+<td>修复BEAST漏洞，改进IV生成逻辑</td>
+<td>1. 仍支持3DES等弱加密套件；<br>2. 无强制前向保密；<br>3. 握手效率低（2-RTT）</td>
+<td>2015-2020年（过渡阶段）</td>
+<td>2024年起主流浏览器（Chrome、Safari）停止支持，金融App已全面淘汰</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>2008年</td>
+<td>1. 支持AEAD算法（AES-GCM）；<br>2. 支持ECDHE前向保密；<br>3. 废弃RC4、3DES等弱算法</td>
+<td>1. 握手延迟高（默认2-RTT）；<br>2. 支持的加密套件过多，易因配置错误引入风险；<br>3. 会话恢复机制安全性不足</td>
+<td>2020-2023年（主流阶段）</td>
+<td>仍为部分老旧设备（如Android 7-9）的基线，但金融App已逐步迁移至1.3</td>
+</tr>
+<tr>
+<td>1.3</td>
+<td>2018年</td>
+<td>1. 握手优化（1-RTT，0-RTT会话恢复）；<br>2. 强制前向保密（仅支持ECDHE&#x2F;FFDHE）；<br>3. 仅保留5种安全加密套件；<br>4. 简化密钥派生逻辑</td>
+<td>1. 0-RTT会话恢复存在重放攻击风险；<br>2. 对老旧服务器兼容性差</td>
+<td>2023年至今（主流升级阶段）</td>
+<td>金融、支付类App强制要求（如银联、券商App），Android 11+、iOS 13+完美支持</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-关键技术演进：从TLS-1-2到1-3的“质变”"><a href="#2-2-关键技术演进：从TLS-1-2到1-3的“质变”" class="headerlink" title="2.2 关键技术演进：从TLS 1.2到1.3的“质变”"></a>2.2 关键技术演进：从TLS 1.2到1.3的“质变”</h3><p>TLS 1.3是移动App安全与性能的“分水岭”，其核心改进并非简单的版本升级，而是对协议底层逻辑的重构，重点解决移动场景的“延迟高、配置杂、漏洞多”问题。</p>
+<h4 id="2-2-1-握手流程优化：从2-RTT到1-RTT，降低移动网络延迟"><a href="#2-2-1-握手流程优化：从2-RTT到1-RTT，降低移动网络延迟" class="headerlink" title="2.2.1 握手流程优化：从2-RTT到1-RTT，降低移动网络延迟"></a>2.2.1 握手流程优化：从2-RTT到1-RTT，降低移动网络延迟</h4><p>移动网络（如4G&#x2F;5G）存在天然的“往返时间（RTT）”损耗，TLS 1.2的2-RTT握手会显著增加App启动加载时间，而TLS 1.3通过“合并消息”将握手压缩至1-RTT，具体对比如下：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>TLS 1.2 握手流程（2-RTT）</th>
+<th>TLS 1.3 握手流程（1-RTT）</th>
+<th>移动App收益</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一RTT</td>
+<td>客户端发送：Client Hello（版本、加密套件、随机数）<br>服务器回复：Server Hello（选定版本&#x2F;套件）、证书、Server Key Exchange（公钥）、Server Hello Done</td>
+<td>客户端发送：Client Hello（含Key Share、加密套件）<br>服务器回复：Server Hello（含Key Share）、证书、Finished（握手完成）</td>
+<td>合并“Server Key Exchange”与“Finished”消息，减少1次RTT，启动速度提升30%-50%（实测数据）</td>
+</tr>
+<tr>
+<td>第二RTT</td>
+<td>客户端发送：Client Key Exchange（密钥材料）、Finished<br>服务器回复：Finished</td>
+<td>（无）——客户端接收服务器消息后，直接用协商的会话密钥传输业务数据</td>
+<td>无需等待第二次RTT，首次请求可提前发送</td>
+</tr>
+<tr>
+<td>会话恢复（重连）</td>
+<td>需1-RTT（Session ID&#x2F;Session Ticket）</td>
+<td>支持0-RTT（Pre-Shared Key，PSK）——客户端直接用缓存的PSK发送业务数据</td>
+<td>重连延迟接近TCP，适合社交、电商App的频繁交互场景</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>注意</strong>：TLS 1.3的0-RTT会话恢复虽高效，但存在“重放攻击”风险（攻击者可重复发送0-RTT请求），移动App需仅对“幂等接口”（如查询商品、获取用户信息）启用0-RTT，对“非幂等接口”（如支付、转账）强制使用1-RTT。</p>
+</blockquote>
+<h4 id="2-2-2-加密套件精简：从“泛滥”到“极简”，减少配置风险"><a href="#2-2-2-加密套件精简：从“泛滥”到“极简”，减少配置风险" class="headerlink" title="2.2.2 加密套件精简：从“泛滥”到“极简”，减少配置风险"></a>2.2.2 加密套件精简：从“泛滥”到“极简”，减少配置风险</h4><p>TLS 1.2支持超过30种加密套件，移动App若配置不当（如启用弱套件TLS_RSA_WITH_3DES_EDE_CBC_SHA），会直接引入安全漏洞；而TLS 1.3仅保留5种安全套件，且全部满足“前向保密+AEAD”要求，App无需复杂配置即可确保安全，具体套件如下：</p>
+<table>
+<thead>
+<tr>
+<th>TLS 1.3 加密套件</th>
+<th>适用场景（移动App）</th>
+<th>优势</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TLS_AES_256_GCM_SHA384</td>
+<td>金融、支付类App（高安全性需求）</td>
+<td>256位AES加密，SHA-384完整性校验，抗暴力破解能力强</td>
+</tr>
+<tr>
+<td>TLS_AES_128_GCM_SHA256</td>
+<td>通用App（平衡安全与性能）</td>
+<td>128位AES加密，性能比256位高15%-20%，适合低功耗设备（如智能手表）</td>
+</tr>
+<tr>
+<td>TLS_CHACHA20_POLY1305_SHA256</td>
+<td>弱硬件设备（如老旧Android手机）、高延迟网络</td>
+<td>基于流加密，CPU占用率比AES低30%，抗数据包丢失能力强</td>
+</tr>
+<tr>
+<td>TLS_AES_128_CCM_SHA256</td>
+<td>物联网设备（如智能POS）</td>
+<td>适合小数据包加密，兼容性好</td>
+</tr>
+<tr>
+<td>TLS_AES_128_CCM_8_SHA256</td>
+<td>低带宽场景（如2G网络）</td>
+<td>认证标签仅8字节（其他套件为16字节），减少传输开销</td>
+</tr>
+</tbody></table>
+<h4 id="2-2-3-前向保密强制：从“可选”到“必选”，提升历史数据安全性"><a href="#2-2-3-前向保密强制：从“可选”到“必选”，提升历史数据安全性" class="headerlink" title="2.2.3 前向保密强制：从“可选”到“必选”，提升历史数据安全性"></a>2.2.3 前向保密强制：从“可选”到“必选”，提升历史数据安全性</h4><p>前向保密（FS）是金融App的核心安全需求——即使服务器私钥泄露，攻击者也无法解密历史通信数据。TLS 1.2中FS为可选（需手动配置ECDHE套件），而TLS 1.3强制所有密钥交换算法均支持FS，具体实现逻辑如下：</p>
+<ol>
+<li><p><strong>TLS 1.2（可选FS）</strong>：</p>
+<ul>
+<li>若App配置<code>TLS_RSA_WITH_AES_256_GCM_SHA384</code>套件（无FS），则会话密钥由服务器长期私钥解密生成——私钥泄露后，所有历史会话可被破解；</li>
+<li>若配置<code>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</code>套件（有FS），则会话密钥由客户端临时私钥+服务器临时私钥计算生成——私钥泄露不影响历史数据。</li>
+</ul>
+</li>
+<li><p><strong>TLS 1.3（强制FS）</strong>：</p>
+<ul>
+<li>仅支持ECDHE（椭圆曲线 Diffie-Hellman 密钥交换）和FFDHE（有限域 Diffie-Hellman 密钥交换）两种密钥交换算法，均具备FS特性；</li>
+<li>移动App默认使用ECDHE（性能更优），推荐选择<code>secp256r1</code>（NIST标准）或<code>x25519</code>（Curve25519，性能比secp256r1高40%）椭圆曲线。</li>
+</ul>
+</li>
+</ol>
+<h2 id="三、-TLS在移动App中的攻防实践：从“协议依赖”到“纵深防御”"><a href="#三、-TLS在移动App中的攻防实践：从“协议依赖”到“纵深防御”" class="headerlink" title="三、 TLS在移动App中的攻防实践：从“协议依赖”到“纵深防御”"></a>三、 TLS在移动App中的攻防实践：从“协议依赖”到“纵深防御”</h2><p>即使使用TLS 1.3，移动App仍面临“中间人攻击（MITM）、降级攻击、证书劫持”等风险——攻击者可通过Root&#x2F;越狱设备安装恶意CA证书、篡改TLS版本协商过程，绕过TLS基础防护。因此，App需结合“协议配置+证书锁定+行为检测”构建纵深防御体系。</p>
+<h3 id="3-1-核心威胁：中间人攻击（MITM）的技术原理与常见手段"><a href="#3-1-核心威胁：中间人攻击（MITM）的技术原理与常见手段" class="headerlink" title="3.1 核心威胁：中间人攻击（MITM）的技术原理与常见手段"></a>3.1 核心威胁：中间人攻击（MITM）的技术原理与常见手段</h3><p>MITM是移动App最频发的TLS攻击场景，攻击者通过“拦截并篡改数据包”，伪装成“客户端-服务器”之间的中间节点，窃取明文数据。常见攻击手段如下：</p>
+<table>
+<thead>
+<tr>
+<th>攻击手段</th>
+<th>技术原理</th>
+<th>影响范围（移动App）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>恶意CA证书注入</td>
+<td>1. 攻击者在Root&#x2F;越狱设备上安装自制根CA证书；<br>2. 拦截App的TLS请求，用恶意CA签名的伪造证书与App通信；<br>3. 用服务器真实证书与服务器通信，实现“明文窃取”</td>
+<td>所有未做证书锁定的App，可窃取登录密码、交易数据</td>
+</tr>
+<tr>
+<td>代理劫持（如Burp Suite）</td>
+<td>1. App配置系统代理，流量经过Burp Suite等工具；<br>2. 工具用内置CA证书与App建立TLS连接，用真实证书与服务器通信；<br>3. 攻击者在工具中查看明文数据</td>
+<td>开发环境未禁用代理的App，或生产环境允许代理配置的App</td>
+</tr>
+<tr>
+<td>TLS降级攻击</td>
+<td>1. 攻击者拦截Client Hello消息，将TLS 1.3版本修改为1.2&#x2F;1.1；<br>2. 服务器若支持低版本，会降级至不安全版本通信；<br>3. 利用低版本漏洞（如TLS 1.0的BEAST）破解数据</td>
+<td>未强制TLS版本的App，尤其是金融、支付类App</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-防御技术一：证书锁定（Certificate-Pinning）——MITM的“终极防御”"><a href="#3-2-防御技术一：证书锁定（Certificate-Pinning）——MITM的“终极防御”" class="headerlink" title="3.2 防御技术一：证书锁定（Certificate Pinning）——MITM的“终极防御”"></a>3.2 防御技术一：证书锁定（Certificate Pinning）——MITM的“终极防御”</h3><p>证书锁定（Pinning）是移动App对抗恶意CA证书的核心技术，其原理是：App内置服务器证书的“指纹信息”（如公钥哈希），在TLS握手时，除了系统默认的证书链校验，额外校验服务器证书的指纹是否与内置值一致——若不一致（如遇到伪造证书），直接终止连接。</p>
+<h4 id="3-2-1-两种Pin类型：SPKI-Pinning-vs-证书文件Pinning"><a href="#3-2-1-两种Pin类型：SPKI-Pinning-vs-证书文件Pinning" class="headerlink" title="3.2.1 两种Pin类型：SPKI Pinning vs 证书文件Pinning"></a>3.2.1 两种Pin类型：SPKI Pinning vs 证书文件Pinning</h4><p>移动App常用两种Pinning方式，各有优劣，需根据业务场景选择：</p>
+<table>
+<thead>
+<tr>
+<th>Pin类型</th>
+<th>技术原理</th>
+<th>优点</th>
+<th>缺点</th>
+<th>移动App推荐场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SPKI Pinning（公钥哈希锁定）</td>
+<td>提取服务器证书的“主题公钥信息（SPKI）”，计算SHA-256&#x2F;SHA-384哈希值，内置到App中</td>
+<td>1. 证书轮换时（如有效期更新），若公钥不变，无需修改App；<br>2. 哈希值体积小（SHA-256仅32字节），不占用App存储</td>
+<td>1. 若服务器更换公钥（如密钥泄露），需更新App；<br>2. 需提前获取服务器SPKI哈希</td>
+<td>金融、证券App（证书轮换频繁，公钥长期不变）</td>
+</tr>
+<tr>
+<td>证书文件Pinning（证书锁定）</td>
+<td>将服务器证书（.pem格式）或根CA证书直接内置到App中，握手时校验服务器证书是否与内置文件一致</td>
+<td>1. 校验逻辑简单（直接对比证书内容）；<br>2. 无需计算哈希，减少开发误差</td>
+<td>1. 证书过期或轮换时，必须更新App；<br>2. 证书文件体积大（约1-2KB）</td>
+<td>小众App、内部工具（证书轮换频率低）</td>
+</tr>
+</tbody></table>
+<h4 id="3-2-2-移动App代码实现：Android与iOS的实操示例"><a href="#3-2-2-移动App代码实现：Android与iOS的实操示例" class="headerlink" title="3.2.2 移动App代码实现：Android与iOS的实操示例"></a>3.2.2 移动App代码实现：Android与iOS的实操示例</h4><p>证书锁定需结合平台特性实现，以下为Android（SPKI Pinning）与iOS（SPKI Pinning）的标准代码，包含“校验逻辑、异常处理、动态更新”关键细节：</p>
+<h5 id="（1）Android-实现（基于Network-Security-Config，官方推荐）"><a href="#（1）Android-实现（基于Network-Security-Config，官方推荐）" class="headerlink" title="（1）Android 实现（基于Network Security Config，官方推荐）"></a>（1）Android 实现（基于Network Security Config，官方推荐）</h5><p>Android 7.0+支持通过XML配置SPKI Pinning，无需修改Java&#x2F;Kotlin代码，适配性更强：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- res/xml/network_security_config.xml --&gt;</span><br><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">network-security-config</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- 仅对指定域名生效，避免影响第三方接口（如支付SDK） --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">domain-config</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">domain</span> <span class="hljs-attr">includeSubdomains</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>api.securities-app.com<span class="hljs-tag">&lt;/<span class="hljs-name">domain</span>&gt;</span> <span class="hljs-comment">&lt;!-- 主域名 --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">domain</span> <span class="hljs-attr">includeSubdomains</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>pay.securities-app.com<span class="hljs-tag">&lt;/<span class="hljs-name">domain</span>&gt;</span> <span class="hljs-comment">&lt;!-- 支付子域名 --&gt;</span><br>        <br>        <span class="hljs-comment">&lt;!-- SPKI Pinning配置 --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">pin-set</span> <span class="hljs-attr">expiration</span>=<span class="hljs-string">&quot;2026-09-10&quot;</span>&gt;</span> <span class="hljs-comment">&lt;!-- Pin有效期，避免永久锁定导致证书轮换失效 --&gt;</span><br>            <span class="hljs-comment">&lt;!-- 主证书SPKI哈希（SHA-256），需替换为实际服务器证书的哈希值 --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pin</span> <span class="hljs-attr">digest</span>=<span class="hljs-string">&quot;SHA-256&quot;</span>&gt;</span>rFjc3wG7lTZe43zeYTvPq8k4xdDEutCmIhI5dn4oCeE=<span class="hljs-tag">&lt;/<span class="hljs-name">pin</span>&gt;</span><br>            <span class="hljs-comment">&lt;!-- 备用证书SPKI哈希（用于证书轮换过渡，避免App变砖） --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pin</span> <span class="hljs-attr">digest</span>=<span class="hljs-string">&quot;SHA-256&quot;</span>&gt;</span>MHJYVThhYWIxNTc0YTMzMDg4ZjNmMTllYmNlOGYxN2JiNGY1MjE=<span class="hljs-tag">&lt;/<span class="hljs-name">pin</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">pin-set</span>&gt;</span><br>        <br>        <span class="hljs-comment">&lt;!-- 降级策略：若Pin校验失败，是否允许使用系统信任库（仅测试环境启用） --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">trust-anchors</span>&gt;</span><br>            <span class="hljs-comment">&lt;!-- 生产环境：仅信任内置Pin的证书，禁用系统信任库 --&gt;</span><br>            <span class="hljs-comment">&lt;!-- &lt;certificates src=&quot;system&quot; disableSystemDefault=&quot;true&quot; /&gt; --&gt;</span><br>            <span class="hljs-comment">&lt;!-- 测试环境：允许系统信任库（方便调试） --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">certificates</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;system&quot;</span> /&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">certificates</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;user&quot;</span> /&gt;</span> <span class="hljs-comment">&lt;!-- 允许用户安装的CA（如Burp Suite证书） --&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">trust-anchors</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">domain-config</span>&gt;</span><br>    <br>    <span class="hljs-comment">&lt;!-- 其他域名：使用默认系统信任库（如第三方SDK接口） --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">base-config</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">trust-anchors</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">certificates</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;system&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">trust-anchors</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">base-config</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">network-security-config</span>&gt;</span><br><br><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="关键配置说明"><a href="#关键配置说明" class="headerlink" title="关键配置说明"></a>关键配置说明</h2><ul>
+<li><strong><code>expiration</code></strong>：Pin 有效期 —— 避免证书过期后，老版本 App 无法连接服务器；</li>
+<li><strong>备用 Pin</strong>：证书轮换前，提前将新版本证书的 SPKI 哈希内置到 App，确保轮换期间新老版本 App 均能正常通信；</li>
+<li><strong><code>disableSystemDefault=&quot;true&quot;</code></strong>：生产环境必须启用，禁止 App 信任系统中的恶意 CA 证书。</li>
+</ul>
+<h2 id="（2）iOS-实现（基于-URLSession，Swift-代码）"><a href="#（2）iOS-实现（基于-URLSession，Swift-代码）" class="headerlink" title="（2）iOS 实现（基于 URLSession，Swift 代码）"></a>（2）iOS 实现（基于 URLSession，Swift 代码）</h2><p>iOS 需通过 <code>URLSessionDelegate</code> 手动实现 SPKI Pinning 校验，核心是对比服务器证书的 SPKI 哈希与内置哈希：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">import</span> Foundation<br><span class="hljs-keyword">import</span> Security<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TLSPinningDelegate</span>: <span class="hljs-title class_ inherited__">NSObject</span>, <span class="hljs-title class_ inherited__">URLSessionDelegate</span> &#123;<br>    <span class="hljs-comment">// 内置的服务器证书SPKI哈希（SHA-256，base64编码），需替换为实际值</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">let</span> trustedSPKIHashes <span class="hljs-operator">=</span> [<br>        <span class="hljs-string">&quot;rFjc3wG7lTZe43zeYTvPq8k4xdDEutCmIhI5dn4oCeE=&quot;</span>, <span class="hljs-comment">// 主证书</span><br>        <span class="hljs-string">&quot;MHJYVThhYWIxNTc0YTMzMDg4ZjNmMTllYmNlOGYxN2JiNGY1MjE=&quot;</span>  <span class="hljs-comment">// 备用证书</span><br>    ]<br>    <br>    <span class="hljs-comment">// TLS握手时触发，校验服务器证书</span><br>    <span class="hljs-keyword">func</span> <span class="hljs-title function_">urlSession</span>(<span class="hljs-keyword">_</span> <span class="hljs-params">session</span>: <span class="hljs-type">URLSession</span>, <span class="hljs-params">didReceive</span> <span class="hljs-params">challenge</span>: <span class="hljs-type">URLAuthenticationChallenge</span>, <span class="hljs-params">completionHandler</span>: <span class="hljs-keyword">@escaping</span> (<span class="hljs-type">URLSession</span>.<span class="hljs-type">AuthChallengeDisposition</span>, <span class="hljs-type">URLCredential</span>?) -&gt; <span class="hljs-type">Void</span>) &#123;<br>        <span class="hljs-comment">// 仅处理TLS证书校验</span><br>        <span class="hljs-keyword">guard</span> challenge.protectionSpace.authenticationMethod <span class="hljs-operator">==</span> <span class="hljs-type">NSURLAuthenticationMethodServerTrust</span> <span class="hljs-keyword">else</span> &#123;<br>            completionHandler(.performDefaultHandling, <span class="hljs-literal">nil</span>)<br>            <span class="hljs-keyword">return</span><br>        &#125;<br>        <br>        <span class="hljs-comment">// 获取服务器信任对象</span><br>        <span class="hljs-keyword">guard</span> <span class="hljs-keyword">let</span> serverTrust <span class="hljs-operator">=</span> challenge.protectionSpace.serverTrust <span class="hljs-keyword">else</span> &#123;<br>            completionHandler(.cancelAuthenticationChallenge, <span class="hljs-literal">nil</span>)<br>            <span class="hljs-keyword">return</span><br>        &#125;<br>        <br>        <span class="hljs-comment">// 从服务器信任对象中提取证书链</span><br>        <span class="hljs-keyword">let</span> certificateCount <span class="hljs-operator">=</span> <span class="hljs-type">SecTrustGetCertificateCount</span>(serverTrust)<br>        <span class="hljs-keyword">guard</span> certificateCount <span class="hljs-operator">&gt;</span> <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> &#123;<br>            completionHandler(.cancelAuthenticationChallenge, <span class="hljs-literal">nil</span>)<br>            <span class="hljs-keyword">return</span><br>        &#125;<br>        <br>        <span class="hljs-comment">// 取证书链中的第一个证书（服务器端证书）</span><br>        <span class="hljs-keyword">guard</span> <span class="hljs-keyword">let</span> serverCertificate <span class="hljs-operator">=</span> <span class="hljs-type">SecTrustGetCertificateAtIndex</span>(serverTrust, <span class="hljs-number">0</span>) <span class="hljs-keyword">else</span> &#123;<br>            completionHandler(.cancelAuthenticationChallenge, <span class="hljs-literal">nil</span>)<br>            <span class="hljs-keyword">return</span><br>        &#125;<br>        <br>        <span class="hljs-comment">// 提取证书的SPKI（主题公钥信息）</span><br>        <span class="hljs-keyword">guard</span> <span class="hljs-keyword">let</span> spkiData <span class="hljs-operator">=</span> <span class="hljs-type">SecCertificateCopyPublicKey</span>(serverCertificate) <span class="hljs-keyword">else</span> &#123;<br>            completionHandler(.cancelAuthenticationChallenge, <span class="hljs-literal">nil</span>)<br>            <span class="hljs-keyword">return</span><br>        &#125;<br>        <span class="hljs-keyword">guard</span> <span class="hljs-keyword">let</span> spkiBytes <span class="hljs-operator">=</span> <span class="hljs-type">CFDataGetBytePtr</span>(spkiData), <span class="hljs-keyword">let</span> spkiLength <span class="hljs-operator">=</span> <span class="hljs-type">CFDataGetLength</span>(spkiData) <span class="hljs-keyword">as?</span> <span class="hljs-type">Int</span> <span class="hljs-keyword">else</span> &#123;<br>            completionHandler(.cancelAuthenticationChallenge, <span class="hljs-literal">nil</span>)<br>            <span class="hljs-keyword">return</span><br>        &#125;<br>        <br>        <span class="hljs-comment">// 计算SPKI的SHA-256哈希，并转换为base64编码</span><br>        <span class="hljs-keyword">let</span> spkiHash <span class="hljs-operator">=</span> <span class="hljs-type">SHA256</span>.hash(data: <span class="hljs-type">Data</span>(bytes: spkiBytes, count: spkiLength))<br>        <span class="hljs-keyword">let</span> spkiHashBase64 <span class="hljs-operator">=</span> spkiHash.compactMap &#123; <span class="hljs-type">String</span>(format: <span class="hljs-string">&quot;%02x&quot;</span>, <span class="hljs-variable">$0</span>) &#125;.joined().data(using: .utf8)<span class="hljs-operator">?</span>.base64EncodedString()<br>        <br>        <span class="hljs-comment">// 校验哈希是否在信任列表中</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> spkiHashBase64 <span class="hljs-operator">=</span> spkiHashBase64, trustedSPKIHashes.contains(spkiHashBase64) &#123;<br>            <span class="hljs-comment">// 校验通过，信任服务器证书</span><br>            <span class="hljs-keyword">let</span> credential <span class="hljs-operator">=</span> <span class="hljs-type">URLCredential</span>(trust: serverTrust)<br>            completionHandler(.useCredential, credential)<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 校验失败，终止连接</span><br>            completionHandler(.cancelAuthenticationChallenge, <span class="hljs-literal">nil</span>)<br>            <span class="hljs-comment">// 记录攻击日志（如发送到安全后台）</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;TLS Pinning failed: Invalid SPKI hash - <span class="hljs-subst">\(spkiHashBase64 <span class="hljs-operator">??</span> <span class="hljs-string">&quot;unknown&quot;</span>)</span>&quot;</span>)<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 使用方式：创建URLSession时指定delegate</span><br><span class="hljs-keyword">let</span> session <span class="hljs-operator">=</span> <span class="hljs-type">URLSession</span>(configuration: .default, delegate: <span class="hljs-type">TLSPinningDelegate</span>(), delegateQueue: <span class="hljs-type">OperationQueue</span>())<br><span class="hljs-keyword">let</span> task <span class="hljs-operator">=</span> session.dataTask(with: <span class="hljs-type">URL</span>(string: <span class="hljs-string">&quot;https://api.securities-app.com/v1/trade&quot;</span>)<span class="hljs-operator">!</span>) &#123; data, response, error <span class="hljs-keyword">in</span><br>    <span class="hljs-comment">// 处理请求结果</span><br>&#125;<br>task.resume()<br><br><span class="hljs-operator">---</span><br><br></code></pre></td></tr></table></figure>
+<h2 id="关键配置说明-1"><a href="#关键配置说明-1" class="headerlink" title="关键配置说明"></a>关键配置说明</h2><ul>
+<li>SecCertificateCopyPublicKey：提取证书的公钥信息（SPKI），避免直接对比证书文件（可应对证书轮换</li>
+<li>SHA256.hash：计算 SPKI 的哈希值，避免明文存储公钥（减少被逆向提取的风险）；<br>攻击日志记录：Pin 校验失败可能是 MITM 攻击，需上报日志用于安全分析。</li>
+</ul>
+<h2 id="四、TLS-在移动-App-中的核心风险与防控策略"><a href="#四、TLS-在移动-App-中的核心风险与防控策略" class="headerlink" title="四、TLS 在移动 App 中的核心风险与防控策略"></a>四、TLS 在移动 App 中的核心风险与防控策略</h2><p>TLS 配置与实现过程中，易因 “技术理解偏差、工程化疏漏” 引入风险，尤其是金融、支付类 App，需重点关注以下风险点并制定防控策略。</p>
+<h3 id="4-1-技术风险：协议特性与攻击手段带来的安全漏洞"><a href="#4-1-技术风险：协议特性与攻击手段带来的安全漏洞" class="headerlink" title="4.1 技术风险：协议特性与攻击手段带来的安全漏洞"></a>4.1 技术风险：协议特性与攻击手段带来的安全漏洞</h3><h4 id="4-1-1-证书锁定失效风险"><a href="#4-1-1-证书锁定失效风险" class="headerlink" title="4.1.1 证书锁定失效风险"></a>4.1.1 证书锁定失效风险</h4><p><strong>风险场景：</strong></p>
+<ul>
+<li>仅配置单一 Pin，服务器证书紧急轮换后，老版本 App 无法连接（“Pin 致死”）；</li>
+<li>Pin 校验逻辑被逆向破解（如 Hook <code>SecTrustEvaluate</code> 函数绕过校验）；</li>
+</ul>
+<p><strong>防控策略：</strong></p>
+<ul>
+<li>配置 “主 Pin + 备用 Pin”：证书轮换前 3 个月，将新版本证书的 SPKI 哈希内置到 App，确保轮换期间新老版本兼容；</li>
+<li><strong>动态 Pin 更新</strong>：App 启动时，通过 “独立安全通道”（如 HTTPS + 服务器公钥硬编码）从服务器获取最新 Pin 列表，缓存到本地（需对缓存的 Pin 进行签名校验）；</li>
+<li><strong>反 Hook 检测</strong>：在 Pin 校验逻辑中加入反 Hook 代码（如检查函数地址是否被篡改、内存中是否存在 Frida 特征），发现 Hook 后立即终止 App。</li>
+</ul>
+<h4 id="4-1-2-TLS-1-3-0-RTT-重放攻击风险"><a href="#4-1-2-TLS-1-3-0-RTT-重放攻击风险" class="headerlink" title="4.1.2 TLS 1.3 0-RTT 重放攻击风险"></a>4.1.2 TLS 1.3 0-RTT 重放攻击风险</h4><p><strong>风险场景：</strong><br>攻击者截获 App 的 0-RTT 请求（如 “获取用户余额”），重复发送该请求，可能导致服务器重复处理（如误判为多次查询）；</p>
+<p><strong>防控策略：</strong></p>
+<ul>
+<li>仅对 “幂等接口” 启用 0-RTT：如查询类接口（<code>GET /v1/balance</code>），对非幂等接口（<code>POST /v1/pay</code>）强制使用 1-RTT；</li>
+<li><strong>服务器端加入防重放机制</strong>：为每个 0-RTT 请求生成唯一 Nonce（随机数），服务器记录已处理的 Nonce，10 分钟内拒绝重复请求；</li>
+<li><strong>限制 0-RTT 有效期</strong>：App 缓存的 PSK（预共享密钥）有效期不超过 24 小时，到期后强制重新进行 1-RTT 握手。</li>
+</ul>
+<h4 id="4-1-3-会话恢复漏洞风险"><a href="#4-1-3-会话恢复漏洞风险" class="headerlink" title="4.1.3 会话恢复漏洞风险"></a>4.1.3 会话恢复漏洞风险</h4><p><strong>风险场景：</strong><br>TLS 1.2 的 Session Ticket 未加密存储，攻击者窃取 Ticket 后可伪装成合法客户端重连服务器；</p>
+<p><strong>防控策略：</strong></p>
+<ul>
+<li>禁用 Session ID（安全性低），仅使用 Session Ticket；</li>
+<li><strong>服务器对 Session Ticket 进行加密</strong>：用独立的密钥（与 TLS 私钥分离）加密 Ticket 内容，即使 Ticket 被窃取，攻击者也无法解密；</li>
+<li><strong>缩短 Ticket 有效期</strong>：设置为 5 分钟（移动 App 重连频率低，短有效期影响小）。</li>
+</ul>
+<h3 id="4-2-工程风险：配置错误与兼容性问题导致的安全失效"><a href="#4-2-工程风险：配置错误与兼容性问题导致的安全失效" class="headerlink" title="4.2 工程风险：配置错误与兼容性问题导致的安全失效"></a>4.2 工程风险：配置错误与兼容性问题导致的安全失效</h3><h4 id="4-2-1-加密套件配置错误"><a href="#4-2-1-加密套件配置错误" class="headerlink" title="4.2.1 加密套件配置错误"></a>4.2.1 加密套件配置错误</h4><p><strong>风险场景：</strong><br>App 未指定加密套件，依赖系统默认配置，部分老旧设备可能启用弱套件（如 TLS 1.2 的 <code>TLS_RSA_WITH_3DES_EDE_CBC_SHA</code>）；</p>
+<p><strong>防控策略：</strong></p>
+<ul>
+<li><strong>显式指定加密套件</strong>：如 Android 用 OkHttp、iOS 用 URLSession 时，手动列出支持的安全套件（仅保留 TLS 1.3 的 5 种套件或 TLS 1.2 的 ECDHE+AEAD 套件）；</li>
+<li><strong>自动化测试</strong>：在 CI&#x2F;CD 流程中加入 TLS 配置检测（如使用 OpenSSL 工具 <code>openssl s_client -connect api.securities-app.com:443 -tls1_3</code>），检测是否存在弱套件；</li>
+<li><strong>灰度发布</strong>：新 TLS 配置先在 10% 用户中灰度发布，监控崩溃率与连接失败率，确认无兼容性问题后全量发布。</li>
+</ul>
+<h4 id="4-2-2-证书过期风险"><a href="#4-2-2-证书过期风险" class="headerlink" title="4.2.2 证书过期风险"></a>4.2.2 证书过期风险</h4><p><strong>风险场景：</strong><br>服务器证书过期后，App 未及时更新内置 Pin 或证书，导致所有用户无法连接；</p>
+<p><strong>防控策略：</strong></p>
+<ul>
+<li><strong>证书过期预警</strong>：服务器端设置证书过期前 30 天预警，触发邮件 &#x2F; 短信通知；</li>
+<li><strong>App 端证书有效期校验</strong>：在 TLS 握手时，额外校验服务器证书的有效期，若剩余时间不足 7 天，弹出 “App 需更新” 提示；</li>
+<li><strong>证书轮换灰度策略</strong>：先在 10% 服务器上部署新证书，App 同时支持新老证书的 Pin，确认无问题后全量切换服务器证书。</li>
+</ul>
+<h4 id="4-2-3-兼容性问题"><a href="#4-2-3-兼容性问题" class="headerlink" title="4.2.3 兼容性问题"></a>4.2.3 兼容性问题</h4><p><strong>风险场景：</strong><br>强制启用 TLS 1.3 后，Android 7-9（不支持 TLS 1.3）用户无法使用 App；</p>
+<p><strong>防控策略：</strong></p>
+<ul>
+<li><strong>分版本适配</strong>：<ul>
+<li>Android 11+、iOS 13+：强制 TLS 1.3；</li>
+<li>Android 7-10、iOS 12：支持 TLS 1.2（仅启用 ECDHE+AEAD 套件）；</li>
+</ul>
+</li>
+<li><strong>最低版本限制</strong>：金融 App 可将最低支持版本提升至 Android 8.0、iOS 13.0（2025 年市场占有率已低于 5%）；</li>
+<li><strong>友好提示</strong>：不支持 TLS 1.3 的设备打开 App 时，弹出 “设备系统版本过低，需升级系统或使用最新版 App” 提示，引导用户升级。</li>
+</ul>
+<hr>
+<h2 id="五、结论：移动-App-TLS-安全的最佳实践与未来趋势"><a href="#五、结论：移动-App-TLS-安全的最佳实践与未来趋势" class="headerlink" title="五、结论：移动 App TLS 安全的最佳实践与未来趋势"></a>五、结论：移动 App TLS 安全的最佳实践与未来趋势</h2><h3 id="5-1-最佳实践总结"><a href="#5-1-最佳实践总结" class="headerlink" title="5.1 最佳实践总结"></a>5.1 最佳实践总结</h3><p>基于前文分析，移动 App（尤其是金融、支付类）的 TLS 安全需遵循 <strong>“版本最新化、配置显式化、防御纵深化、监控常态化”</strong> 四大原则：</p>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>实践</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>版本最新化</strong></td>
+<td>优先使用 TLS 1.3，仅对老旧设备兼容 TLS 1.2（需启用 ECDHE+AEAD 套件）</td>
+</tr>
+<tr>
+<td><strong>配置显式化</strong></td>
+<td>显式指定 TLS 版本、加密套件、Pin 列表，禁用系统默认配置，避免弱组件被启用</td>
+</tr>
+<tr>
+<td><strong>防御纵深化</strong></td>
+<td>结合 “证书锁定 + 应用层加密 + 反 Hook 检测”，即使单一防御被绕过，仍有其他防线</td>
+</tr>
+<tr>
+<td><strong>监控常态化</strong></td>
+<td>在 App 中加入 TLS 握手日志（含版本、套件、Pin 校验结果），上传至安全后台，实时监控异常连接（如 Pin 校验失败、弱套件使用）</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-未来趋势"><a href="#5-2-未来趋势" class="headerlink" title="5.2 未来趋势"></a>5.2 未来趋势</h3><ul>
+<li><p><strong>TLS 1.4 预览</strong>：IETF 已启动 TLS 1.4 草案制定，重点方向包括：</p>
+<ul>
+<li>进一步优化握手延迟（目标 0-RTT 无重放风险）；</li>
+<li>支持量子安全算法（如 CRYSTALS-Kyber），应对量子计算带来的密钥破解威胁；</li>
+<li>更灵活的密钥更新机制，支持会话中动态更换密钥。</li>
+</ul>
+</li>
+<li><p><strong>硬件级 TLS 加速</strong>：移动芯片（如骁龙 8 Gen4、A18）将集成 TLS 硬件加速模块，降低 AES-GCM&#x2F;ChaCha20-Poly1305 的 CPU 占用率，提升 App 性能；</p>
+</li>
+<li><p><strong>平台级安全增强</strong>：Android 15+、iOS 18+ 可能内置 “系统级证书锁定”，无需 App 手动实现，进一步降低开发门槛与安全风险。</p>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/TLS/" class="print-no-link">#TLS</a>
+      
+        <a href="/tags/%E7%A7%BB%E5%8A%A8%E5%AE%89%E5%85%A8/" class="print-no-link">#移动安全</a>
+      
+        <a href="/tags/App%E5%AE%89%E5%85%A8/" class="print-no-link">#App安全</a>
+      
+        <a href="/tags/%E5%8A%A0%E5%AF%86%E5%8D%8F%E8%AE%AE/" class="print-no-link">#加密协议</a>
+      
+        <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB/" class="print-no-link">#中间人攻击</a>
+      
+        <a href="/tags/%E5%89%8D%E5%90%91%E4%BF%9D%E5%AF%86/" class="print-no-link">#前向保密</a>
+      
+        <a href="/tags/%E8%AF%81%E4%B9%A6%E9%94%81%E5%AE%9A/" class="print-no-link">#证书锁定</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>TLS 在移动 App 中的技术演进、攻防实践与风险深度解析</div>
+      <div>http://example.com/2025/05/05/TLS-在移动-App-中的技术演进、攻防实践与风险深度解析/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>年少轻衫薄</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年9月8日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/04/%E9%87%91%E8%9E%8D%E8%AF%81%E5%88%B8App%E6%94%BB%E9%98%B2%E6%BC%94%E8%BF%9B%EF%BC%9A%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E8%87%AA%E4%BF%9D%E6%8A%A4%E7%9A%84%E6%B7%B1%E5%BA%A6%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/" title="金融证券App攻防演进：从数据加密到运行时自保护的深度技术剖析">
+                        <span class="hidden-mobile">金融证券App攻防演进：从数据加密到运行时自保护的深度技术剖析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      京ICP证123456号
+    </a>
+  </span>
+  
+    
+      <span>
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/img/loading.gif" srcset="/img/loading.gif" lazyload data-original="/img/police_beian.png" alt="police-icon"/>
+          
+          <span>京公网安备12345678号</span>
+        </a>
+      </span>
+    
+  
+</div>
+
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z\d\-\.\+]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(t.test(e.href)||r.test(e.href))&&(e.href=a.dataset.original)})});</script><script>(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body>
+</html>
