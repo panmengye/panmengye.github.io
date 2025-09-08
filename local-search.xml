@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>信息安全-钓鱼场景话术库</title>
+    <link href="/2025/05/07/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8-%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E8%AF%9D%E6%9C%AF%E5%BA%93/"/>
+    <url>/2025/05/07/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8-%E9%92%93%E9%B1%BC%E5%9C%BA%E6%99%AF%E8%AF%9D%E6%9C%AF%E5%BA%93/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>本文档共收录 <strong>41 个典型钓鱼场景</strong>话术，覆盖「员工服务中心 &#x2F; HR &#x2F; IT &#x2F; 外部钓鱼」四大来源，可用于<strong>红蓝对抗演练、员工安全意识培训、钓鱼邮件模拟测试</strong>。<br>使用前请确保已获<strong>人力资源部、法务部</strong>授权，避免真实业务干扰。</p></blockquote><hr><h2 id="快速检索表"><a href="#快速检索表" class="headerlink" title="快速检索表"></a>快速检索表</h2><table><thead><tr><th>序号</th><th>发送方</th><th>主题关键词</th><th>需要点击链接</th><th>需要输入密码</th><th>需要下载附件</th></tr></thead><tbody><tr><td>1</td><td>员工服务中心</td><td>团建文化衫</td><td>✅</td><td>❌</td><td>❌</td></tr><tr><td>2</td><td>员工服务中心</td><td>食堂意见问卷</td><td>✅</td><td>✅</td><td>❌</td></tr><tr><td>3</td><td>员工服务中心</td><td>廉租房抽签</td><td>✅</td><td>✅</td><td>❌</td></tr><tr><td>4</td><td>员工服务中心</td><td>考勤方式变更</td><td>✅</td><td>✅</td><td>❌</td></tr><tr><td>5</td><td>员工服务中心</td><td>班车线路投票</td><td>✅</td><td>❌</td><td>❌</td></tr><tr><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td></tr><tr><td>41</td><td>外部钓鱼</td><td>党员学习系统</td><td>✅</td><td>✅</td><td>❌</td></tr></tbody></table><hr><h2 id="1-员工服务中心（场景-1-18）"><a href="#1-员工服务中心（场景-1-18）" class="headerlink" title="1. 员工服务中心（场景 1-18）"></a>1. 员工服务中心（场景 1-18）</h2><table><thead><tr><th>序号</th><th>话术示例</th></tr></thead><tbody><tr><td>1</td><td>各位好，近期公司要进行团建…请登录系统选择尺寸和相关图案。</td></tr><tr><td>2</td><td>为了让餐饮合作商提供更优质的服务…请登录系统后填写相关问卷。</td></tr><tr><td>3</td><td>公司近期会提供一批廉租房宿舍…数量有限，请登录内部系统抽签。</td></tr><tr><td>4</td><td>从 XX 月 XX 日起，考勤方式将以个人登录公司系统为准，请登录查看。</td></tr><tr><td>5</td><td>公司最近会增加 1 趟班车…请登录内部系统投票选择线路。</td></tr><tr><td>6</td><td>因行政和人事系统内部调整，个人信息需重新更新，请登录系统重新填写。</td></tr><tr><td>7</td><td>公司将要举办一场团建活动，地点由大家投票决定，请投票。</td></tr><tr><td>8</td><td>近期公司系统经常无端出错，请各位配合测试登录系统。</td></tr><tr><td>9</td><td>本月内会抽取一个工作日进行防火演练…请登录系统投票确定日期。</td></tr><tr><td>10</td><td>旅游的季节又要到来啦…请登录系统对今年的旅游线路进行投票。</td></tr><tr><td>11</td><td>公司最新福利免费领…各大游乐园打折返现券，请登录系统领取。</td></tr><tr><td>12</td><td>公司购买了一批体育器材…请登录公司内部系统提交建议。</td></tr><tr><td>13</td><td>员工服务中心准备了贴心的礼物…请登录公司系统填写家庭住址。</td></tr><tr><td>14</td><td>XX 部门季度奖将重新调整…请登录公司系统查看详情。</td></tr><tr><td>15</td><td>高温季节已经来临…特发福利，请登录公司内部系统领取。</td></tr><tr><td>16</td><td>月初即将切换人事系统…请到新人事系统提交流程。</td></tr><tr><td>17</td><td>公司要求每位员工录入指纹…请登录系统填写个人信息。</td></tr><tr><td>18</td><td>每一位员工在公司这些年的照片都做成了一个影集，请登录系统后观看。</td></tr></tbody></table><hr><h2 id="2-HR-条线（场景-19-27）"><a href="#2-HR-条线（场景-19-27）" class="headerlink" title="2. HR 条线（场景 19-27）"></a>2. HR 条线（场景 19-27）</h2><table><thead><tr><th>序号</th><th>话术示例</th></tr></thead><tbody><tr><td>19</td><td>因公司业务需要，现需要从以下人员中投票竞选合适人选，请投票。</td></tr><tr><td>20</td><td>计划在公司范围招聘部分人员进行培训…请登录内部系统查看详情。</td></tr><tr><td>21</td><td>近期部分同事反馈对于自身的工资奖金计算存在困惑…请登录查看。</td></tr><tr><td>22</td><td>感谢您始终如一的努力工作…现以此通知您调薪事宜，请登陆系统查看。</td></tr><tr><td>23</td><td>需要大家自行申报收入情况…请登录系统，由公司统一提交到税务部门。</td></tr><tr><td>24</td><td>政府开展了对企业援用的返税活动…请登录系统后查看详细情况。</td></tr><tr><td>25</td><td>现对内部开展免费培训活动…培训名额有限，请大家登录系统报名。</td></tr><tr><td>26</td><td>【党支部文件】特制定本制度…请登录新系统查看。</td></tr><tr><td>27</td><td>由于离职人员较多，内部邮箱卡顿…请立即升级，否则按离职删除账户。</td></tr></tbody></table><hr><h2 id="3-IT-条线（场景-28-38）"><a href="#3-IT-条线（场景-28-38）" class="headerlink" title="3. IT 条线（场景 28-38）"></a>3. IT 条线（场景 28-38）</h2><table><thead><tr><th>序号</th><th>话术示例</th><th>附件</th></tr></thead><tbody><tr><td>28</td><td>公司企业邮箱系统计划于即日起开始进行数据迁移…请登录公司内部系统。</td><td>❌</td></tr><tr><td>29</td><td>公司近期对邮件系统进行升级…请点击此处重新登录你的邮箱确认账号。</td><td>❌</td></tr><tr><td>30</td><td>公司数据库出现故障…请点击此处确认你的账号是否受到影响。</td><td>❌</td></tr><tr><td>31</td><td>公司邮箱密码泄露…请登录公司新系统查看！</td><td>❌</td></tr><tr><td>32</td><td>近期有黑客频繁对我司邮箱发送钓鱼邮件…请登录内部的安全系统查看。</td><td>❌</td></tr><tr><td>33</td><td>近 60 个邮箱受到影响…IT 那边紧急开发了测试工具…<strong>请下载检测</strong>。</td><td>✅</td></tr><tr><td>34</td><td>为防止勒索病毒等恶意病毒传播…<strong>请下载附件</strong>安装杀毒软件查杀。</td><td>✅</td></tr><tr><td>35</td><td>开展安全意识小竞赛活动…请登录后进行小游戏测试，前 20 名有礼物。</td><td>❌</td></tr><tr><td>36</td><td>开展病毒知识小竞赛活动…请登录后进行游戏测试，前 20 名有礼物。</td><td>❌</td></tr><tr><td>37</td><td>公司内网不少个人主机感染了挖矿病毒…请登录系统查看自己是否被感染。</td><td>❌</td></tr><tr><td>38</td><td>新资产管理系统上线了…可使用邮箱或老系统用户名密码登录，稳定性还在联调。</td><td>❌</td></tr></tbody></table><hr><h2 id="4-外部钓鱼（场景-39-41）"><a href="#4-外部钓鱼（场景-39-41）" class="headerlink" title="4. 外部钓鱼（场景 39-41）"></a>4. 外部钓鱼（场景 39-41）</h2><table><thead><tr><th>序号</th><th>话术示例</th></tr></thead><tbody><tr><td>39</td><td>新春佳节放假时间为腊月二十九至正月初三…推出免费券，请点击以下链接领取。</td></tr><tr><td>40</td><td>您的孩子在新东方学习俱乐部补习英语科目…请及时办理续费手续。</td></tr><tr><td>41</td><td>局机关各党支部：特制定本制度，请登录系统查看！</td></tr></tbody></table><hr><h2 id="使用建议"><a href="#使用建议" class="headerlink" title="使用建议"></a>使用建议</h2><ol><li><strong>演练频率</strong>：每季度 1 次，每次随机抽取 ≤3 个场景。  </li><li><strong>目标人群</strong>：先对 10% 员工试点，再逐步扩大。  </li><li><strong>事后教育</strong>：点击率达到 5% 以上即触发<strong>强制 15 分钟安全微课</strong>。  </li><li><strong>度量指标</strong>：<ul><li>点击率（≤3% 为优秀）  </li><li>报告率（≥30% 为合格）  </li><li>下载率（0 为优秀）</li></ul></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>内部资料</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>信息安全</tag>
+      
+      <tag>钓鱼演练</tag>
+      
+      <tag>话术库</tag>
+      
+      <tag>社工培训</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>安卓 App 中 OkHttp 与文件模块的安全风险及对抗方案</title>
     <link href="/2025/05/06/%E5%AE%89%E5%8D%93%20App%20%E4%B8%AD%20OkHttp%20%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AE%89%E5%85%A8%E9%A3%8E%E9%99%A9%E5%8F%8A%E5%AF%B9%E6%8A%97%E6%96%B9%E6%A1%88/"/>
     <url>/2025/05/06/%E5%AE%89%E5%8D%93%20App%20%E4%B8%AD%20OkHttp%20%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AE%89%E5%85%A8%E9%A3%8E%E9%99%A9%E5%8F%8A%E5%AF%B9%E6%8A%97%E6%96%B9%E6%A1%88/</url>
