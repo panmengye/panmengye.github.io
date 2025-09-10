@@ -22,19 +22,19 @@
       
         <tags>
             
-            <tag> 信息安全 </tag>
-            
             <tag> 移动安全 </tag>
+            
+            <tag> 信息安全 </tag>
             
             <tag> 金融科技 </tag>
             
-            <tag> 渗透测试 </tag>
+            <tag> 数据加密 </tag>
             
             <tag> 逆向工程 </tag>
             
-            <tag> 安全加固 </tag>
+            <tag> 渗透测试 </tag>
             
-            <tag> 数据加密 </tag>
+            <tag> 安全加固 </tag>
             
             <tag> API安全 </tag>
             
@@ -150,8 +150,6 @@
             
             <tag> 金融科技 </tag>
             
-            <tag> 逆向工程 </tag>
-            
             <tag> 数据加密 </tag>
             
             <tag> App加固 </tag>
@@ -159,6 +157,8 @@
             <tag> RASP </tag>
             
             <tag> 白盒加密 </tag>
+            
+            <tag> 逆向工程 </tag>
             
         </tags>
       
