@@ -26,20 +26,20 @@
 <meta property="og:site_name" content="Youth in thin attire">
 <meta property="og:description" content="深入分析金融证券类App面临的核心信息安全风险，从静态分析、动态调试、通信安全、本地存储、组件安全等多个技术维度，结合具体工具与代码示例，揭示潜在攻击路径并提出系统性加固方案。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="hhttps://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEBpGVowN1uFPNs9MfOj6IyE1NknppXzwAC2BYAAj4FCFZs5hBwL6Sh6zYE.jpg">
+<meta property="og:image" content="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEBpGVowN1uFPNs9MfOj6IyE1NknppXzwAC2BYAAj4FCFZs5hBwL6Sh6zYE.jpg">
 <meta property="article:published_time" content="2025-05-10T08:00:00.000Z">
-<meta property="article:modified_time" content="2025-09-10T02:07:56.661Z">
+<meta property="article:modified_time" content="2025-09-10T02:17:53.913Z">
 <meta property="article:author" content="Youth in thin attire">
-<meta property="article:tag" content="移动安全">
 <meta property="article:tag" content="信息安全">
+<meta property="article:tag" content="移动安全">
 <meta property="article:tag" content="金融科技">
-<meta property="article:tag" content="数据加密">
-<meta property="article:tag" content="逆向工程">
 <meta property="article:tag" content="渗透测试">
+<meta property="article:tag" content="逆向工程">
 <meta property="article:tag" content="安全加固">
+<meta property="article:tag" content="数据加密">
 <meta property="article:tag" content="API安全">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="hhttps://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEBpGVowN1uFPNs9MfOj6IyE1NknppXzwAC2BYAAj4FCFZs5hBwL6Sh6zYE.jpg">
+<meta name="twitter:image" content="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEBpGVowN1uFPNs9MfOj6IyE1NknppXzwAC2BYAAj4FCFZs5hBwL6Sh6zYE.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -296,7 +296,7 @@
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2025-09-10T10:07:56+08:00
+                    本文最后更新于 2025-09-10T10:17:53+08:00
                   
                   
 
@@ -310,7 +310,7 @@
 <p><strong>摘要</strong>：金融证券App作为高价值数字资产的入口，其安全防护至关重要。本文在基础分析之上，进一步细化技术细节，涵盖从代码层到运行时、从通信链路到本地数据的全生命周期风险，结合真实工具链与可复现的攻击&#x2F;防御代码片段，为安全工程师与开发人员提供可落地的深度参考。</p>
 </blockquote>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>金融证券App承载着用户身份信息、交易密码、持仓数据、资金流水等高度敏感内容，一旦失守，后果不堪设想。近年来，针对此类应用的攻击手段日益专业化，从简单的抓包篡改发展到利用系统漏洞的高级持续性威胁（APT）。本文将从<strong>攻防对抗</strong>的视角，深入拆解其技术风险本质。</p>
-<h2 id="核心安全风险技术分析（增强版）"><a href="#核心安全风险技术分析（增强版）" class="headerlink" title="核心安全风险技术分析（增强版）"></a>核心安全风险技术分析（增强版）</h2><h3 id="1-静态分析与代码逆向：攻击者的“第一道门”"><a href="#1-静态分析与代码逆向：攻击者的“第一道门”" class="headerlink" title="1. 静态分析与代码逆向：攻击者的“第一道门”"></a>1. 静态分析与代码逆向：攻击者的“第一道门”</h3><h4 id="1-1-代码混淆的深度与有效性"><a href="#1-1-代码混淆的深度与有效性" class="headerlink" title="1.1 代码混淆的深度与有效性"></a>1.1 代码混淆的深度与有效性</h4><ul>
+<h2 id="核心安全风险技术分析"><a href="#核心安全风险技术分析" class="headerlink" title="核心安全风险技术分析"></a>核心安全风险技术分析</h2><h3 id="1-静态分析与代码逆向：攻击者的“第一道门”"><a href="#1-静态分析与代码逆向：攻击者的“第一道门”" class="headerlink" title="1. 静态分析与代码逆向：攻击者的“第一道门”"></a>1. 静态分析与代码逆向：攻击者的“第一道门”</h3><h4 id="1-1-代码混淆的深度与有效性"><a href="#1-1-代码混淆的深度与有效性" class="headerlink" title="1.1 代码混淆的深度与有效性"></a>1.1 代码混淆的深度与有效性</h4><ul>
 <li><strong>基础混淆不足</strong>：<ul>
 <li>仅启用<code>-obfuscate</code>但未使用<code>-optimizationpasses 5</code>进行多轮优化，保留大量可读类名。</li>
 <li>未混淆第三方库（如<code>retrofit</code>, <code>okhttp</code>），攻击者可快速定位网络请求入口。</li>
@@ -549,19 +549,19 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%A7%BB%E5%8A%A8%E5%AE%89%E5%85%A8/" class="print-no-link">#移动安全</a>
-      
         <a href="/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" class="print-no-link">#信息安全</a>
+      
+        <a href="/tags/%E7%A7%BB%E5%8A%A8%E5%AE%89%E5%85%A8/" class="print-no-link">#移动安全</a>
       
         <a href="/tags/%E9%87%91%E8%9E%8D%E7%A7%91%E6%8A%80/" class="print-no-link">#金融科技</a>
       
-        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86/" class="print-no-link">#数据加密</a>
+        <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="print-no-link">#渗透测试</a>
       
         <a href="/tags/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/" class="print-no-link">#逆向工程</a>
       
-        <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="print-no-link">#渗透测试</a>
-      
         <a href="/tags/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" class="print-no-link">#安全加固</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86/" class="print-no-link">#数据加密</a>
       
         <a href="/tags/API%E5%AE%89%E5%85%A8/" class="print-no-link">#API安全</a>
       
