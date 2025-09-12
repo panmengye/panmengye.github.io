@@ -88,6 +88,8 @@
     
     <tags>
       
+      <tag>数据安全</tag>
+      
       <tag>渗透测试</tag>
       
       <tag>银行安全</tag>
@@ -101,8 +103,6 @@
       <tag>金融安全</tag>
       
       <tag>应急响应</tag>
-      
-      <tag>数据安全</tag>
       
     </tags>
     
@@ -129,11 +129,11 @@
     
     <tags>
       
+      <tag>网络安全</tag>
+      
       <tag>信息安全</tag>
       
       <tag>威胁建模</tag>
-      
-      <tag>网络安全</tag>
       
       <tag>STRIDE</tag>
       
@@ -170,13 +170,13 @@
       
       <tag>金融科技</tag>
       
-      <tag>渗透测试</tag>
+      <tag>数据加密</tag>
       
       <tag>逆向工程</tag>
       
-      <tag>安全加固</tag>
+      <tag>渗透测试</tag>
       
-      <tag>数据加密</tag>
+      <tag>安全加固</tag>
       
     </tags>
     
@@ -226,11 +226,11 @@
     
     <tags>
       
-      <tag>网络安全</tag>
-      
       <tag>Android</tag>
       
       <tag>OkHttp</tag>
+      
+      <tag>网络安全</tag>
       
       <tag>文件传输</tag>
       
@@ -290,8 +290,6 @@
       
       <tag>金融科技</tag>
       
-      <tag>逆向工程</tag>
-      
       <tag>数据加密</tag>
       
       <tag>App加固</tag>
@@ -299,6 +297,8 @@
       <tag>RASP</tag>
       
       <tag>白盒加密</tag>
+      
+      <tag>逆向工程</tag>
       
     </tags>
     
