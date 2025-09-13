@@ -17,27 +17,37 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="Youth in thin attire">
-  <meta name="keywords" content="">
+  <meta name="keywords" content="金融安全,红队测试,渗透测试,WAF绕过,MFA绕过,风控绕过,ATT&amp;CK,业务逻辑漏洞,证券系统安全">
   
-    <meta name="description" content="核心价值：  首次系统化梳理金融行业“高防护突破测试”完整技术路径 每个阶段提供绕过技术、工具配置、脚本示例、检测规避策略 基于MITRE ATT&amp;CK框架映射，支持汇报与度量 含4张原创Mermaid攻击流程图 + 3个实战案例 所有技术均可在合规授权环境下复现执行  一、引言：为什么“高防护突破测试”是金融安全的试金石？金融证券行业业务系统普遍部署以下防护机制：  ✅ WAF + A">
+    <meta name="description" content="本文系统化梳理金融证券行业在高强度防护体系下开展“突破测试”的完整技术路径，涵盖从初始访问、权限提升、横向移动到业务操控的7大阶段，结合ATT&amp;CK框架与实战脚本，提供可落地的绕过方案与防御建议。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="金融证券高防护业务系统突破测试技术全景图">
-<meta property="og:url" content="http://example.com/2025/09/12/%E9%87%91%E8%9E%8D%E8%AF%81%E5%88%B8%E9%AB%98%E9%98%B2%E6%8A%A4%E4%B8%9A%E5%8A%A1%E7%B3%BB%E7%BB%9F%E7%AA%81%E7%A0%B4%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF%E5%85%A8%E6%99%AF%E5%9B%BE/index.html">
+<meta property="og:title" content="金融证券高防护业务从绕过WAF&#x2F;MFA&#x2F;风控到隐蔽横向与资金操控的ATT&amp;CK实战路径">
+<meta property="og:url" content="http://example.com/2025/09/12/%E9%87%91%E8%9E%8D%E8%AF%81%E5%88%B8%E9%AB%98%E9%98%B2%E6%8A%A4%E4%B8%9A%E5%8A%A1-%E4%BB%8E%E7%BB%95%E8%BF%87WAF-MFA-%E9%A3%8E%E6%8E%A7%E5%88%B0%E9%9A%90%E8%94%BD%E6%A8%AA%E5%90%91%E4%B8%8E%E8%B5%84%E9%87%91%E6%93%8D%E6%8E%A7%E7%9A%84ATT-CK%E5%AE%9E%E6%88%98%E8%B7%AF%E5%BE%84/index.html">
 <meta property="og:site_name" content="Youth in thin attire">
-<meta property="og:description" content="核心价值：  首次系统化梳理金融行业“高防护突破测试”完整技术路径 每个阶段提供绕过技术、工具配置、脚本示例、检测规避策略 基于MITRE ATT&amp;CK框架映射，支持汇报与度量 含4张原创Mermaid攻击流程图 + 3个实战案例 所有技术均可在合规授权环境下复现执行  一、引言：为什么“高防护突破测试”是金融安全的试金石？金融证券行业业务系统普遍部署以下防护机制：  ✅ WAF + A">
+<meta property="og:description" content="本文系统化梳理金融证券行业在高强度防护体系下开展“突破测试”的完整技术路径，涵盖从初始访问、权限提升、横向移动到业务操控的7大阶段，结合ATT&amp;CK框架与实战脚本，提供可落地的绕过方案与防御建议。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://hqhmd.oss-cn-hongkong.aliyuncs.com/img/20250912154734269.png">
-<meta property="article:published_time" content="2025-09-12T07:43:37.000Z">
-<meta property="article:modified_time" content="2025-09-12T09:03:44.026Z">
+<meta property="og:image" content="https://hqhmd.oss-cn-hongkong.aliyuncs.com/img/20250913104444493.png">
+<meta property="article:published_time" content="2025-09-12T09:04:00.000Z">
+<meta property="article:modified_time" content="2025-09-12T09:04:00.000Z">
 <meta property="article:author" content="Youth in thin attire">
+<meta property="article:tag" content="渗透测试">
+<meta property="article:tag" content="红队攻击">
+<meta property="article:tag" content="ATT&amp;CK">
+<meta property="article:tag" content="金融证券">
+<meta property="article:tag" content="WAF绕过">
+<meta property="article:tag" content="MFA绕过">
+<meta property="article:tag" content="风控绕过">
+<meta property="article:tag" content="业务安全">
+<meta property="article:tag" content="突破测试">
+<meta property="article:tag" content="高级持续性威胁">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://hqhmd.oss-cn-hongkong.aliyuncs.com/img/20250912154734269.png">
+<meta name="twitter:image" content="https://hqhmd.oss-cn-hongkong.aliyuncs.com/img/20250913104444493.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>金融证券高防护业务系统突破测试技术全景图 - Youth in thin attire</title>
+  <title>金融证券高防护业务从绕过WAF/MFA/风控到隐蔽横向与资金操控的ATT&amp;CK实战路径 - Youth in thin attire</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -203,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="金融证券高防护业务系统突破测试技术全景图"></span>
+            <span id="subtitle" data-typed-text="金融证券高防护业务从绕过WAF/MFA/风控到隐蔽横向与资金操控的ATT&amp;CK实战路径"></span>
           
         </div>
 
@@ -214,7 +224,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-09-12 15:43" pubdate>
+        <time datetime="2025-09-12 17:04" pubdate>
           2025年9月12日 下午
         </time>
       </span>
@@ -283,17 +293,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">金融证券高防护业务系统突破测试技术全景图</h1>
-            
-              <p id="updated-time" class="note note-info" style="display: none">
-                
-                  
-                    本文最后更新于 2025-09-12T17:03:44+08:00
-                  
-                  
-
-                
-              </p>
+            <h1 id="seo-header">金融证券高防护业务从绕过WAF/MFA/风控到隐蔽横向与资金操控的ATT&amp;CK实战路径</h1>
             
             
               <div class="markdown-body">
@@ -630,6 +630,66 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%87%91%E8%9E%8D%E5%AE%89%E5%85%A8/" class="category-chain-item">金融安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%87%91%E8%9E%8D%E5%AE%89%E5%85%A8/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="category-chain-item">渗透测试</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="print-no-link">#渗透测试</a>
+      
+        <a href="/tags/%E7%BA%A2%E9%98%9F%E6%94%BB%E5%87%BB/" class="print-no-link">#红队攻击</a>
+      
+        <a href="/tags/ATT-CK/" class="print-no-link">#ATT&CK</a>
+      
+        <a href="/tags/%E9%87%91%E8%9E%8D%E8%AF%81%E5%88%B8/" class="print-no-link">#金融证券</a>
+      
+        <a href="/tags/WAF%E7%BB%95%E8%BF%87/" class="print-no-link">#WAF绕过</a>
+      
+        <a href="/tags/MFA%E7%BB%95%E8%BF%87/" class="print-no-link">#MFA绕过</a>
+      
+        <a href="/tags/%E9%A3%8E%E6%8E%A7%E7%BB%95%E8%BF%87/" class="print-no-link">#风控绕过</a>
+      
+        <a href="/tags/%E4%B8%9A%E5%8A%A1%E5%AE%89%E5%85%A8/" class="print-no-link">#业务安全</a>
+      
+        <a href="/tags/%E7%AA%81%E7%A0%B4%E6%B5%8B%E8%AF%95/" class="print-no-link">#突破测试</a>
+      
+        <a href="/tags/%E9%AB%98%E7%BA%A7%E6%8C%81%E7%BB%AD%E6%80%A7%E5%A8%81%E8%83%81/" class="print-no-link">#高级持续性威胁</a>
+      
+    </div>
   
 </div>
 
@@ -639,8 +699,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>金融证券高防护业务系统突破测试技术全景图</div>
-      <div>http://example.com/2025/09/12/金融证券高防护业务系统突破测试技术全景图/</div>
+      <div>金融证券高防护业务从绕过WAF/MFA/风控到隐蔽横向与资金操控的ATT&amp;CK实战路径</div>
+      <div>http://example.com/2025/09/12/金融证券高防护业务-从绕过WAF-MFA-风控到隐蔽横向与资金操控的ATT-CK实战路径/</div>
     </div>
     <div class="license-meta">
       
@@ -655,11 +715,6 @@
           <div>2025年9月12日</div>
         </div>
       
-      
-        <div class="license-meta-item license-meta-date">
-          <div>更新于</div>
-          <div>2025年9月12日</div>
-        </div>
       
       
         <div class="license-meta-item">
@@ -849,33 +904,6 @@
   
 
 
-
-
-  
-<script>
-  var relativeDate = function() {
-    var updatedTime = document.getElementById('updated-time');
-    if (updatedTime) {
-      var text = updatedTime.textContent;
-      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
-      var matchs = text.match(reg);
-      if (matchs) {
-        var relativeTime = moment(matchs[0]).fromNow();
-        updatedTime.textContent = text.replace(reg, relativeTime);
-      }
-      updatedTime.style.display = '';
-    }
-  };
-  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
-    if (!'zh-cn'.startsWith('en')) {
-      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
-        relativeDate();
-      });
-    } else {
-      relativeDate();
-    }
-  });
-</script>
 
 
   
