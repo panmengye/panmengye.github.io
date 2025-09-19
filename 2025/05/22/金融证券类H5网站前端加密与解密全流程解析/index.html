@@ -1,0 +1,767 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Youth in thin attire">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="引言：为什么金融H5必须重视前端加密？在金融证券类H5应用（如股票交易、基金申购、账户查询、行情推送等）中，用户数据的安全性直接关系到资金安全与合规风险。虽然“安全不应依赖前端”是基本原则，但在实际业务中，前端加密是纵深防御体系的第一道防线，能有效防止中间人攻击、网络嗅探、恶意代理等风险。 特别是在移动端H5场景中，用户常在公共WiFi或不可信网络环境下操作，前端加密可确保敏感数据（如登录凭证、交">
+<meta property="og:type" content="article">
+<meta property="og:title" content="金融证券类H5网站前端加密与解密全流程解析">
+<meta property="og:url" content="http://example.com/2025/05/22/%E9%87%91%E8%9E%8D%E8%AF%81%E5%88%B8%E7%B1%BBH5%E7%BD%91%E7%AB%99%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="Youth in thin attire">
+<meta property="og:description" content="引言：为什么金融H5必须重视前端加密？在金融证券类H5应用（如股票交易、基金申购、账户查询、行情推送等）中，用户数据的安全性直接关系到资金安全与合规风险。虽然“安全不应依赖前端”是基本原则，但在实际业务中，前端加密是纵深防御体系的第一道防线，能有效防止中间人攻击、网络嗅探、恶意代理等风险。 特别是在移动端H5场景中，用户常在公共WiFi或不可信网络环境下操作，前端加密可确保敏感数据（如登录凭证、交">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hqhmd.oss-cn-hongkong.aliyuncs.com/img/20250919084048065.png">
+<meta property="article:published_time" content="2025-05-22T00:30:00.000Z">
+<meta property="article:modified_time" content="2025-09-19T00:41:27.602Z">
+<meta property="article:author" content="Youth in thin attire">
+<meta property="article:tag" content="H5安全">
+<meta property="article:tag" content="前端加密">
+<meta property="article:tag" content="证券系统">
+<meta property="article:tag" content="Web Crypto API">
+<meta property="article:tag" content="金融合规">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hqhmd.oss-cn-hongkong.aliyuncs.com/img/20250919084048065.png">
+  
+  
+  
+  <title>金融证券类H5网站前端加密与解密全流程解析 - Youth in thin attire</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="金融证券类H5网站前端加密与解密全流程解析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-22 08:30" pubdate>
+          2025年5月22日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">金融证券类H5网站前端加密与解密全流程解析</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="引言：为什么金融H5必须重视前端加密？"><a href="#引言：为什么金融H5必须重视前端加密？" class="headerlink" title="引言：为什么金融H5必须重视前端加密？"></a>引言：为什么金融H5必须重视前端加密？</h2><p>在金融证券类H5应用（如股票交易、基金申购、账户查询、行情推送等）中，用户数据的安全性直接关系到资金安全与合规风险。虽然“安全不应依赖前端”是基本原则，但在实际业务中，<strong>前端加密是纵深防御体系的第一道防线</strong>，能有效防止中间人攻击、网络嗅探、恶意代理等风险。</p>
+<p>特别是在移动端H5场景中，用户常在公共WiFi或不可信网络环境下操作，前端加密可确保敏感数据（如登录凭证、交易指令、身份信息）在离开浏览器前即被保护。</p>
+<blockquote>
+<p>📌 <strong>重要提示</strong>：前端加密不能替代后端安全！所有敏感操作必须在服务端二次验证与解密。</p>
+</blockquote>
+<hr>
+<h2 id="一、金融H5前端加密的核心目标"><a href="#一、金融H5前端加密的核心目标" class="headerlink" title="一、金融H5前端加密的核心目标"></a>一、金融H5前端加密的核心目标</h2><ol>
+<li><strong>数据机密性</strong>：防止传输过程中被窃听（如账号、密码、交易金额、身份证号）。</li>
+<li><strong>数据完整性</strong>：确保数据未被篡改（如订单号、价格、数量）。</li>
+<li><strong>防重放攻击</strong>：通过时间戳+随机数防止请求被重复提交。</li>
+<li><strong>合规要求</strong>：满足《证券期货业网络信息安全管理办法》《个人金融信息保护技术规范》等监管要求。</li>
+</ol>
+<hr>
+<h2 id="二、主流前端加密技术选型（Web-Crypto-API-AES-RSA）"><a href="#二、主流前端加密技术选型（Web-Crypto-API-AES-RSA）" class="headerlink" title="二、主流前端加密技术选型（Web Crypto API + AES&#x2F;RSA）"></a>二、主流前端加密技术选型（Web Crypto API + AES&#x2F;RSA）</h2><p>现代浏览器已原生支持 <code>Web Crypto API</code>，无需引入第三方库即可实现高强度加密，是金融类H5的首选方案。</p>
+<h3 id="1-对称加密：AES-GCM（推荐用于大数据）"><a href="#1-对称加密：AES-GCM（推荐用于大数据）" class="headerlink" title="1. 对称加密：AES-GCM（推荐用于大数据）"></a>1. 对称加密：AES-GCM（推荐用于大数据）</h3><ul>
+<li><strong>适用场景</strong>：加密交易请求体、用户敏感信息、会话数据。</li>
+<li><strong>优点</strong>：速度快，适合加密大量数据。</li>
+<li><strong>密钥管理</strong>：密钥需通过安全通道（如HTTPS + RSA）从服务端动态获取。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 前端AES-GCM加密示例（金融交易数据）</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">encryptTradeData</span>(<span class="hljs-params">data, key</span>) &#123;<br>  <span class="hljs-keyword">const</span> encoder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TextEncoder</span>();<br>  <span class="hljs-keyword">const</span> iv = crypto.<span class="hljs-title function_">getRandomValues</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Uint8Array</span>(<span class="hljs-number">12</span>)); <span class="hljs-comment">// 12字节IV</span><br>  <span class="hljs-keyword">const</span> encoded = encoder.<span class="hljs-title function_">encode</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(data));<br><br>  <span class="hljs-keyword">const</span> encrypted = <span class="hljs-keyword">await</span> crypto.<span class="hljs-property">subtle</span>.<span class="hljs-title function_">encrypt</span>(<br>    &#123;<br>      <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;AES-GCM&quot;</span>,<br>      <span class="hljs-attr">iv</span>: iv<br>    &#125;,<br>    key,<br>    encoded<br>  );<br><br>  <span class="hljs-comment">// 返回：密文 + IV（Base64编码便于传输）</span><br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-attr">ciphertext</span>: <span class="hljs-title function_">btoa</span>(<span class="hljs-title class_">String</span>.<span class="hljs-title function_">fromCharCode</span>(...<span class="hljs-keyword">new</span> <span class="hljs-title class_">Uint8Array</span>(encrypted))),<br>    <span class="hljs-attr">iv</span>: <span class="hljs-title function_">btoa</span>(<span class="hljs-title class_">String</span>.<span class="hljs-title function_">fromCharCode</span>(...iv))<br>  &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-非对称加密：RSA-OAEP（推荐用于密钥交换）"><a href="#2-非对称加密：RSA-OAEP（推荐用于密钥交换）" class="headerlink" title="2. 非对称加密：RSA-OAEP（推荐用于密钥交换）"></a>2. 非对称加密：RSA-OAEP（推荐用于密钥交换）</h3><ul>
+<li><strong>适用场景</strong>：加密对称密钥、登录密码、数字签名。</li>
+<li><strong>优点</strong>：公钥可公开，私钥在服务端，安全性高。</li>
+<li><strong>注意</strong>：RSA不适合加密大数据（有长度限制）。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 前端RSA加密（如加密登录密码或AES密钥）</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">encryptWithRSA</span>(<span class="hljs-params">plaintext, publicKey</span>) &#123;<br>  <span class="hljs-keyword">const</span> encoder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TextEncoder</span>();<br>  <span class="hljs-keyword">const</span> data = encoder.<span class="hljs-title function_">encode</span>(plaintext);<br><br>  <span class="hljs-keyword">const</span> encrypted = <span class="hljs-keyword">await</span> crypto.<span class="hljs-property">subtle</span>.<span class="hljs-title function_">encrypt</span>(<br>    &#123;<br>      <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;RSA-OAEP&quot;</span><br>    &#125;,<br>    publicKey,<br>    data<br>  );<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-title function_">btoa</span>(<span class="hljs-title class_">String</span>.<span class="hljs-title function_">fromCharCode</span>(...<span class="hljs-keyword">new</span> <span class="hljs-title class_">Uint8Array</span>(encrypted)));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-哈希与签名：SHA-256-HMAC（防篡改）"><a href="#3-哈希与签名：SHA-256-HMAC（防篡改）" class="headerlink" title="3. 哈希与签名：SHA-256 + HMAC（防篡改）"></a>3. 哈希与签名：SHA-256 + HMAC（防篡改）</h3><ul>
+<li><strong>适用场景</strong>：生成请求签名、校验数据完整性。</li>
+<li><strong>金融常用</strong>：<code>HMAC-SHA256(key, data)</code> 用于API签名。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 生成请求签名（防篡改）</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">generateSignature</span>(<span class="hljs-params">data, secretKey</span>) &#123;<br>  <span class="hljs-keyword">const</span> encoder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TextEncoder</span>();<br>  <span class="hljs-keyword">const</span> key = <span class="hljs-keyword">await</span> crypto.<span class="hljs-property">subtle</span>.<span class="hljs-title function_">importKey</span>(<br>    <span class="hljs-string">&quot;raw&quot;</span>,<br>    encoder.<span class="hljs-title function_">encode</span>(secretKey),<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;HMAC&quot;</span>, <span class="hljs-attr">hash</span>: <span class="hljs-string">&quot;SHA-256&quot;</span> &#125;,<br>    <span class="hljs-literal">false</span>,<br>    [<span class="hljs-string">&quot;sign&quot;</span>]<br>  );<br><br>  <span class="hljs-keyword">const</span> signature = <span class="hljs-keyword">await</span> crypto.<span class="hljs-property">subtle</span>.<span class="hljs-title function_">sign</span>(<span class="hljs-string">&quot;HMAC&quot;</span>, key, encoder.<span class="hljs-title function_">encode</span>(data));<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">from</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Uint8Array</span>(signature))<br>    .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">b</span> =&gt;</span> b.<span class="hljs-title function_">toString</span>(<span class="hljs-number">16</span>).<span class="hljs-title function_">padStart</span>(<span class="hljs-number">2</span>, <span class="hljs-string">&#x27;0&#x27;</span>))<br>    .<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;&#x27;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="三、完整金融H5加密通信流程（以股票交易为例）"><a href="#三、完整金融H5加密通信流程（以股票交易为例）" class="headerlink" title="三、完整金融H5加密通信流程（以股票交易为例）"></a>三、完整金融H5加密通信流程（以股票交易为例）</h2><p><img src="/img/loading.gif" srcset="/img/loading.gif" lazyload data-original="https://hqhmd.oss-cn-hongkong.aliyuncs.com/img/20250919083800097.png" alt="image-20250919083759962"></p>
+<h2 id="四、前端解密流程（服务端响应数据）"><a href="#四、前端解密流程（服务端响应数据）" class="headerlink" title="四、前端解密流程（服务端响应数据）"></a>四、前端解密流程（服务端响应数据）</h2><p>服务端返回的数据同样需要加密，前端需安全解密：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 前端解密服务端响应（如持仓数据、交易结果）</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">decryptResponse</span>(<span class="hljs-params">encryptedData, sessionKey, iv</span>) &#123;<br>  <span class="hljs-keyword">const</span> decoder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TextDecoder</span>();<br>  <span class="hljs-keyword">const</span> key = <span class="hljs-keyword">await</span> crypto.<span class="hljs-property">subtle</span>.<span class="hljs-title function_">importKey</span>(<br>    <span class="hljs-string">&quot;raw&quot;</span>,<br>    sessionKey, <span class="hljs-comment">// 之前协商的AES密钥</span><br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;AES-GCM&quot;</span> &#125;,<br>    <span class="hljs-literal">false</span>,<br>    [<span class="hljs-string">&quot;decrypt&quot;</span>]<br>  );<br><br>  <span class="hljs-keyword">const</span> ciphertext = <span class="hljs-title class_">Uint8Array</span>.<span class="hljs-title function_">from</span>(<span class="hljs-title function_">atob</span>(encryptedData), <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.<span class="hljs-title function_">charCodeAt</span>(<span class="hljs-number">0</span>));<br>  <span class="hljs-keyword">const</span> decrypted = <span class="hljs-keyword">await</span> crypto.<span class="hljs-property">subtle</span>.<span class="hljs-title function_">decrypt</span>(<br>    &#123;<br>      <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;AES-GCM&quot;</span>,<br>      <span class="hljs-attr">iv</span>: <span class="hljs-title class_">Uint8Array</span>.<span class="hljs-title function_">from</span>(<span class="hljs-title function_">atob</span>(iv), <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.<span class="hljs-title function_">charCodeAt</span>(<span class="hljs-number">0</span>))<br>    &#125;,<br>    key,<br>    ciphertext<br>  );<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(decoder.<span class="hljs-title function_">decode</span>(decrypted));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="五、金融行业特殊安全加固措施"><a href="#五、金融行业特殊安全加固措施" class="headerlink" title="五、金融行业特殊安全加固措施"></a>五、金融行业特殊安全加固措施</h2><h3 id="1-动态密钥轮换"><a href="#1-动态密钥轮换" class="headerlink" title="1. 动态密钥轮换"></a>1. 动态密钥轮换</h3><ul>
+<li>每次会话或每N分钟更换AES密钥。</li>
+<li>密钥有效期绑定用户Token，超时失效。</li>
+</ul>
+<h3 id="2-请求防重放"><a href="#2-请求防重放" class="headerlink" title="2. 请求防重放"></a>2. 请求防重放</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 前端生成唯一请求ID + 时间戳</span><br><span class="hljs-keyword">const</span> requestId = crypto.<span class="hljs-title function_">randomUUID</span>();<br><span class="hljs-keyword">const</span> timestamp = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();<br><span class="hljs-comment">// 服务端校验：timestamp在±5分钟内，requestId未使用过</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-敏感操作二次确认"><a href="#3-敏感操作二次确认" class="headerlink" title="3. 敏感操作二次确认"></a>3. 敏感操作二次确认</h3><ul>
+<li>交易类操作需短信&#x2F;生物识别二次验证。</li>
+<li>前端加密前弹出确认框，防止CSRF或误操作。</li>
+</ul>
+<h3 id="4-客户端环境检测"><a href="#4-客户端环境检测" class="headerlink" title="4. 客户端环境检测"></a>4. 客户端环境检测</h3><ul>
+<li>检测是否运行在WebView、是否开启调试模式。</li>
+<li>检测是否安装恶意插件或代理（如Fiddler）。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 简单环境检测（示例）</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">isSecureEnvironment</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">// 禁止在非HTTPS下运行</span><br>  <span class="hljs-keyword">if</span> (location.<span class="hljs-property">protocol</span> !== <span class="hljs-string">&#x27;https:&#x27;</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>  <span class="hljs-comment">// 检测开发者工具（简单方式）</span><br>  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">window</span>.<span class="hljs-property">devtools</span> || <span class="hljs-regexp">/./</span>.<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;&#x27;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="六、合规与审计要求"><a href="#六、合规与审计要求" class="headerlink" title="六、合规与审计要求"></a>六、合规与审计要求</h2><ol>
+<li><strong>密钥管理</strong>：遵循《GM&#x2F;T 0054-2018》要求，密钥生命周期管理。</li>
+<li><strong>算法强度</strong>：使用AES-256、RSA-2048以上、SHA-256。</li>
+<li><strong>日志审计</strong>：记录所有加密操作日志（不含密钥），保留6个月以上。</li>
+<li><strong>渗透测试</strong>：每年至少一次第三方安全评估。</li>
+</ol>
+<hr>
+<h2 id="七、常见误区与最佳实践"><a href="#七、常见误区与最佳实践" class="headerlink" title="七、常见误区与最佳实践"></a>七、常见误区与最佳实践</h2><h3 id="❌-错误做法"><a href="#❌-错误做法" class="headerlink" title="❌ 错误做法"></a>❌ 错误做法</h3><ul>
+<li>使用 <code>CryptoJS</code> 等第三方库（可能含后门或漏洞）。</li>
+<li>前端硬编码密钥（<code>const KEY = &#39;123456&#39;</code>）。</li>
+<li>仅用Base64“伪加密”。</li>
+<li>忽略IV（初始化向量）的随机性。</li>
+</ul>
+<h3 id="✅-最佳实践"><a href="#✅-最佳实践" class="headerlink" title="✅ 最佳实践"></a>✅ 最佳实践</h3><ul>
+<li>优先使用 <strong>Web Crypto API</strong>（浏览器原生，安全可靠）。</li>
+<li>密钥由服务端动态下发，<strong>前端不存储长期密钥</strong>。</li>
+<li>所有加密数据附加 <strong>时间戳 + 随机数</strong>。</li>
+<li>敏感字段单独加密（如密码、银行卡号）。</li>
+<li>配合 <strong>CSP（内容安全策略）</strong> 防止XSS窃取密钥。</li>
+</ul>
+<hr>
+<h2 id="八、结语：安全是持续的过程"><a href="#八、结语：安全是持续的过程" class="headerlink" title="八、结语：安全是持续的过程"></a>八、结语：安全是持续的过程</h2><p>在金融证券H5开发中，前端加密不是“银弹”，而是安全体系中的关键一环。开发者应：</p>
+<ol>
+<li><strong>理解威胁模型</strong>：明确要防御什么（中间人？XSS？重放？）。</li>
+<li><strong>遵循最小权限</strong>：前端只做必要加密，核心逻辑在服务端。</li>
+<li><strong>定期更新算法</strong>：关注NIST、国密局推荐算法更新。</li>
+<li><strong>监控与响应</strong>：建立安全监控，发现异常立即熔断。</li>
+</ol>
+<blockquote>
+<p>🔐 <strong>记住</strong>：没有绝对的安全，只有不断进化的防御。</p>
+</blockquote>
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>Web Crypto API MDN文档</li>
+<li>《证券期货业网络信息安全管理办法》（证监会令第174号）</li>
+<li>JR&#x2F;T 0171-2020《个人金融信息保护技术规范》</li>
+<li>NIST SP 800-57 密钥管理指南</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/" class="category-chain-item">前端安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/%E9%87%91%E8%9E%8D%E7%A7%91%E6%8A%80/" class="category-chain-item">金融科技</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/H5%E5%AE%89%E5%85%A8/" class="print-no-link">#H5安全</a>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/" class="print-no-link">#前端加密</a>
+      
+        <a href="/tags/%E8%AF%81%E5%88%B8%E7%B3%BB%E7%BB%9F/" class="print-no-link">#证券系统</a>
+      
+        <a href="/tags/Web-Crypto-API/" class="print-no-link">#Web Crypto API</a>
+      
+        <a href="/tags/%E9%87%91%E8%9E%8D%E5%90%88%E8%A7%84/" class="print-no-link">#金融合规</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>金融证券类H5网站前端加密与解密全流程解析</div>
+      <div>http://example.com/2025/05/22/金融证券类H5网站前端加密与解密全流程解析/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Youth in thin attire</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/20/%E9%87%91%E8%9E%8D%E8%AF%81%E5%88%B8%E9%AB%98%E9%98%B2%E6%8A%A4%E4%B8%9A%E5%8A%A1-%E4%BB%8E%E7%BB%95%E8%BF%87WAF-MFA-%E9%A3%8E%E6%8E%A7%E5%88%B0%E9%9A%90%E8%94%BD%E6%A8%AA%E5%90%91%E4%B8%8E%E8%B5%84%E9%87%91%E6%93%8D%E6%8E%A7%E7%9A%84ATT-CK%E5%AE%9E%E6%88%98%E8%B7%AF%E5%BE%84/" title="金融证券高防护业务从绕过WAF/MFA/风控到隐蔽横向与资金操控的ATT&amp;CK实战路径">
+                        <span class="hidden-mobile">金融证券高防护业务从绕过WAF/MFA/风控到隐蔽横向与资金操控的ATT&amp;CK实战路径</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z\d\-\.\+]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(t.test(e.href)||r.test(e.href))&&(e.href=a.dataset.original)})});</script><script>(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body>
+</html>
