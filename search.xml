@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>金融证券类 H5 网站前端加密与解密：攻防视角下的安全风险深度剖析</title>
+      <link href="/2025/09/19/%E9%87%91%E8%9E%8D%E8%AF%81%E5%88%B8%E7%B1%BB-H5-%E7%BD%91%E7%AB%99%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%EF%BC%9A%E6%94%BB%E9%98%B2%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84%E5%AE%89%E5%85%A8%E9%A3%8E%E9%99%A9%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90/"/>
+      <url>/2025/09/19/%E9%87%91%E8%9E%8D%E8%AF%81%E5%88%B8%E7%B1%BB-H5-%E7%BD%91%E7%AB%99%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%EF%BC%9A%E6%94%BB%E9%98%B2%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84%E5%AE%89%E5%85%A8%E9%A3%8E%E9%99%A9%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>金融证券类H5网站前端加密与解密全流程解析</title>
       <link href="/2025/05/22/%E9%87%91%E8%9E%8D%E8%AF%81%E5%88%B8%E7%B1%BBH5%E7%BD%91%E7%AB%99%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/"/>
       <url>/2025/05/22/%E9%87%91%E8%9E%8D%E8%AF%81%E5%88%B8%E7%B1%BBH5%E7%BD%91%E7%AB%99%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</url>
@@ -239,13 +252,13 @@
             
             <tag> 金融科技 </tag>
             
-            <tag> 渗透测试 </tag>
+            <tag> 数据加密 </tag>
             
             <tag> 逆向工程 </tag>
             
-            <tag> 安全加固 </tag>
+            <tag> 渗透测试 </tag>
             
-            <tag> 数据加密 </tag>
+            <tag> 安全加固 </tag>
             
         </tags>
       
@@ -359,8 +372,6 @@
             
             <tag> 金融科技 </tag>
             
-            <tag> 逆向工程 </tag>
-            
             <tag> 数据加密 </tag>
             
             <tag> App加固 </tag>
@@ -368,6 +379,8 @@
             <tag> RASP </tag>
             
             <tag> 白盒加密 </tag>
+            
+            <tag> 逆向工程 </tag>
             
         </tags>
       
@@ -461,6 +474,43 @@
             <tag> 应用层协议 </tag>
             
             <tag> 网络管理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>金融证券行业App安全基线建设：基于安全测试的手机银行实践指南</title>
+      <link href="/2023/10/15/%E9%87%91%E8%9E%8D%E8%AF%81%E5%88%B8%E8%A1%8C%E4%B8%9AApp%E5%AE%89%E5%85%A8%E5%9F%BA%E7%BA%BF%E5%BB%BA%E8%AE%BE%EF%BC%9A%E5%9F%BA%E4%BA%8E%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E7%9A%84%E6%89%8B%E6%9C%BA%E9%93%B6%E8%A1%8C%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97/"/>
+      <url>/2023/10/15/%E9%87%91%E8%9E%8D%E8%AF%81%E5%88%B8%E8%A1%8C%E4%B8%9AApp%E5%AE%89%E5%85%A8%E5%9F%BA%E7%BA%BF%E5%BB%BA%E8%AE%BE%EF%BC%9A%E5%9F%BA%E4%BA%8E%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E7%9A%84%E6%89%8B%E6%9C%BA%E9%93%B6%E8%A1%8C%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97/</url>
+      
+        <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>随着金融科技的快速发展，手机银行已成为金融证券行业最重要的服务渠道之一。然而，安全漏洞频发已成为制约行业发展的关键问题。根据行业安全测试标准JR&#x2F;T 0191-2020《证券期货业软件测试指南 软件安全测试》，手机银行App的安全基线建设必须基于全面的安全测试和漏洞评估。本文将从信息安全测试漏洞为基准，详细阐述手机银行App安全基线的建设方法，提供可落地的技术方案。</p><h2 id="一、金融行业安全标准与安全基线要求"><a href="#一、金融行业安全标准与安全基线要求" class="headerlink" title="一、金融行业安全标准与安全基线要求"></a>一、金融行业安全标准与安全基线要求</h2><h3 id="1-1-行业安全标准概述"><a href="#1-1-行业安全标准概述" class="headerlink" title="1.1 行业安全标准概述"></a>1.1 行业安全标准概述</h3><p>证券期货业软件安全测试标准JR&#x2F;T 0191-2020为行业提供了明确的安全测试框架，将安全测试流程划分为五个环节：</p><table><thead><tr><th>测试环节</th><th>关键内容</th><th>适用性</th></tr></thead><tbody><tr><td>系统分析</td><td>确定测试范围、目标和环境</td><td>所有安全测试的基础</td></tr><tr><td>威胁分析</td><td>识别潜在威胁和攻击路径</td><td>安全基线制定的核心依据</td></tr><tr><td>测试用例制定</td><td>设计覆盖各类安全漏洞的测试用例</td><td>安全测试执行的指导文件</td></tr><tr><td>测试执行</td><td>实施安全功能检查、代码安全测试等</td><td>安全基线验证的关键步骤</td></tr><tr><td>报告输出</td><td>分析测试结果，提出改进建议</td><td>安全基线优化的依据</td></tr></tbody></table><h3 id="1-2-手机银行App安全基线核心要求"><a href="#1-2-手机银行App安全基线核心要求" class="headerlink" title="1.2 手机银行App安全基线核心要求"></a>1.2 手机银行App安全基线核心要求</h3><p>根据行业标准，手机银行App安全基线应满足以下核心要求：</p><ol><li><strong>安全功能完整性</strong>：满足身份认证、数据加密、交易控制等基本安全功能</li><li><strong>漏洞修复率</strong>：高危漏洞修复率≥95%</li><li><strong>安全基线符合率</strong>：安全配置符合率≥90%</li><li><strong>应用安全</strong>：通过安全测试的移动应用安装卸载安全测试通过率100%</li></ol><h2 id="二、手机银行App常见安全漏洞分析"><a href="#二、手机银行App常见安全漏洞分析" class="headerlink" title="二、手机银行App常见安全漏洞分析"></a>二、手机银行App常见安全漏洞分析</h2><h3 id="2-1-漏洞分类与风险等级"><a href="#2-1-漏洞分类与风险等级" class="headerlink" title="2.1 漏洞分类与风险等级"></a>2.1 漏洞分类与风险等级</h3><table><thead><tr><th>漏洞类型</th><th>风险等级</th><th>常见表现</th><th>行业标准要求</th></tr></thead><tbody><tr><td>未加密存储</td><td>高</td><td>敏感信息明文存储在本地</td><td>《JR&#x2F;T 0191-2020》要求敏感数据加密存储</td></tr><tr><td>传输未加密</td><td>高</td><td>通信未使用TLS 1.2+</td><td>《JR&#x2F;T 0191-2020》要求传输加密</td></tr><tr><td>身份认证缺陷</td><td>高</td><td>二次验证缺失、验证码易预测</td><td>《JR&#x2F;T 0191-2020》要求多因素认证</td></tr><tr><td>代码安全漏洞</td><td>中高</td><td>未过滤的SQL注入、XSS</td><td>《JR&#x2F;T 0191-2020》要求代码安全测试</td></tr><tr><td>设备绑定缺失</td><td>中</td><td>未限制设备绑定</td><td>《JR&#x2F;T 0191-2020》要求设备绑定安全</td></tr><tr><td>越权访问</td><td>高</td><td>未验证权限的API调用</td><td>《JR&#x2F;T 0191-2020》要求权限控制测试</td></tr></tbody></table><h3 id="2-2-漏洞案例分析"><a href="#2-2-漏洞案例分析" class="headerlink" title="2.2 漏洞案例分析"></a>2.2 漏洞案例分析</h3><p><strong>案例1：明文存储用户敏感信息</strong></p><ul><li><strong>漏洞描述</strong>：某手机银行App在本地存储用户身份证号、银行卡号等敏感信息，未进行加密处理。</li><li><strong>安全影响</strong>：设备丢失或被恶意软件感染时，攻击者可直接获取用户敏感信息。</li><li><strong>标准依据</strong>：JR&#x2F;T 0191-2020第5.2.3节要求”敏感数据应加密存储”。</li><li><strong>修复建议</strong>：采用AES-256算法对敏感数据进行加密存储。</li></ul><p><strong>案例2：传输未加密</strong></p><ul><li><strong>漏洞描述</strong>：手机银行App与服务器通信未使用TLS 1.2+，使用HTTP协议传输交易数据。</li><li><strong>安全影响</strong>：攻击者可通过中间人攻击窃取用户交易信息。</li><li><strong>标准依据</strong>：JR&#x2F;T 0191-2020第5.3.1节要求”通信必须采用TLS 1.2及以上版本”。</li><li><strong>修复建议</strong>：强制使用TLS 1.2+，并实施证书固定（Certificate Pinning）。</li></ul><h2 id="三、安全基线建设流程与实施"><a href="#三、安全基线建设流程与实施" class="headerlink" title="三、安全基线建设流程与实施"></a>三、安全基线建设流程与实施</h2><h3 id="3-1-安全基线建设全流程"><a href="#3-1-安全基线建设全流程" class="headerlink" title="3.1 安全基线建设全流程"></a>3.1 安全基线建设全流程</h3><h3 id="3-2-安全基线建设各环节详细说明"><a href="#3-2-安全基线建设各环节详细说明" class="headerlink" title="3.2 安全基线建设各环节详细说明"></a>3.2 安全基线建设各环节详细说明<img src="https://hqhmd.oss-cn-hongkong.aliyuncs.com/img/20250929142024744.png" alt="image-20250929142024535"></h3><h4 id="3-2-1-系统分析"><a href="#3-2-1-系统分析" class="headerlink" title="3.2.1 系统分析"></a>3.2.1 系统分析</h4><p><strong>关键活动</strong>：</p><ul><li>确定手机银行App的测试范围（功能模块、数据流、用户角色）</li><li>识别核心业务流程（登录、转账、查询等）</li><li>分析系统架构（前端、后端、数据库、第三方接口）</li></ul><p><strong>输出文档</strong>：《手机银行App安全测试范围与目标文档》</p><h4 id="3-2-2-威胁分析"><a href="#3-2-2-威胁分析" class="headerlink" title="3.2.2 威胁分析"></a>3.2.2 威胁分析</h4><p><strong>关键活动</strong>：</p><ul><li>识别攻击面（输入点、数据流、外部接口）</li><li>分析攻击路径（如：通过短信钓鱼获取验证码）</li><li>评估风险等级（高、中、低）</li></ul><p><strong>威胁分析矩阵示例</strong>：</p><table><thead><tr><th>攻击面</th><th>攻击路径</th><th>风险等级</th><th>影响程度</th><th>修复优先级</th></tr></thead><tbody><tr><td>登录接口</td><td>暴力破解</td><td>高</td><td>账户被盗</td><td>1</td></tr><tr><td>短信验证码</td><td>短信劫持</td><td>高</td><td>资金被盗</td><td>1</td></tr><tr><td>交易接口</td><td>未验证权限</td><td>高</td><td>未授权交易</td><td>1</td></tr><tr><td>本地存储</td><td>未加密存储</td><td>中</td><td>信息泄露</td><td>2</td></tr><tr><td>应用安装</td><td>未验证应用来源</td><td>中</td><td>恶意软件感染</td><td>2</td></tr></tbody></table><h4 id="3-2-3-测试用例制定"><a href="#3-2-3-测试用例制定" class="headerlink" title="3.2.3 测试用例制定"></a>3.2.3 测试用例制定</h4><p><strong>测试用例设计原则</strong>：</p><ul><li>覆盖所有安全测试技术（安全功能检查、代码安全测试、漏洞扫描、渗透测试、模糊测试）</li><li>重点覆盖高风险漏洞</li><li>考虑移动应用特有测试点（运行环境安全、安装卸载安全等）</li></ul><p><strong>手机银行App安全测试用例示例</strong>：</p><table><thead><tr><th>测试类型</th><th>测试内容</th><th>测试方法</th><th>通过标准</th></tr></thead><tbody><tr><td>安全功能检查</td><td>登录密码强度要求</td><td>手动测试</td><td>密码长度≥8位，包含大小写字母、数字、特殊字符</td></tr><tr><td>代码安全测试</td><td>SQL注入检测</td><td>静态代码分析</td><td>无SQL注入漏洞</td></tr><tr><td>漏洞扫描</td><td>未授权访问检测</td><td>自动化扫描</td><td>无未授权API访问</td></tr><tr><td>渗透测试</td><td>交易篡改</td><td>人工渗透</td><td>交易金额、账号等关键信息无法被篡改</td></tr><tr><td>模糊测试</td><td>输入边界测试</td><td>自动化测试</td><td>无崩溃或异常行为</td></tr></tbody></table><h4 id="3-2-4-测试执行"><a href="#3-2-4-测试执行" class="headerlink" title="3.2.4 测试执行"></a>3.2.4 测试执行</h4><p><strong>测试执行流程</strong>：</p><p><img src="https://hqhmd.oss-cn-hongkong.aliyuncs.com/img/20250929142120305.png" alt="image-20250929142120068"></p><p><strong>关键测试技术实施要点</strong>：</p><ol><li><strong>安全功能检查</strong>：验证身份认证、数据加密、交易控制等安全功能是否按设计实现</li><li><strong>代码安全测试</strong>：使用静态代码分析工具（如SonarQube）扫描代码中的安全漏洞</li><li><strong>漏洞扫描</strong>：使用自动化工具（如Nessus、Burp Suite）扫描应用中的已知漏洞</li><li><strong>渗透测试</strong>：模拟攻击者行为，测试应用的防御能力</li><li><strong>模糊测试</strong>：向应用输入异常数据，测试其健壮性和安全性</li></ol><h4 id="3-2-5-报告输出与基线优化"><a href="#3-2-5-报告输出与基线优化" class="headerlink" title="3.2.5 报告输出与基线优化"></a>3.2.5 报告输出与基线优化</h4><p><strong>测试报告关键内容</strong>：</p><ul><li>漏洞详细描述与风险等级</li><li>修复建议与优先级</li><li>测试覆盖率统计</li><li>安全基线符合率评估</li></ul><p><strong>安全基线优化流程</strong>：</p><p><img src="https://hqhmd.oss-cn-hongkong.aliyuncs.com/img/20250929142143290.png" alt="image-20250929142143148"></p><h2 id="四、手机银行App安全基线具体实施内容"><a href="#四、手机银行App安全基线具体实施内容" class="headerlink" title="四、手机银行App安全基线具体实施内容"></a>四、手机银行App安全基线具体实施内容</h2><h3 id="4-1-安全基线实施框架"><a href="#4-1-安全基线实施框架" class="headerlink" title="4.1 安全基线实施框架"></a>4.1 安全基线实施框架</h3><table><thead><tr><th>安全领域</th><th>基线要求</th><th>测试方法</th><th>通过标准</th></tr></thead><tbody><tr><td>身份认证</td><td>- 多因素认证（密码+短信&#x2F;生物识别） - 会话超时时间≤15分钟 - 登录失败次数限制（≤5次）</td><td>手动测试、渗透测试</td><td>100%通过</td></tr><tr><td>数据传输</td><td>- 通信必须使用TLS 1.2+ - 证书固定（Certificate Pinning）</td><td>漏洞扫描、渗透测试</td><td>100%通过</td></tr><tr><td>数据存储</td><td>- 敏感数据加密存储（AES-256） - 无明文存储</td><td>代码安全测试、安全功能检查</td><td>100%通过</td></tr><tr><td>交易安全</td><td>- 交易前二次验证 - 交易限额设置 - 交易日志完整记录</td><td>手动测试、渗透测试</td><td>100%通过</td></tr><tr><td>移动应用安全</td><td>- 应用签名验证 - 无非官方渠道安装 - 安装卸载安全</td><td>安全功能检查、模糊测试</td><td>100%通过</td></tr><tr><td>设备绑定</td><td>- 设备绑定与解绑验证 - 设备变更需二次验证</td><td>手动测试、渗透测试</td><td>100%通过</td></tr></tbody></table><h3 id="4-2-安全基线实施关键点"><a href="#4-2-安全基线实施关键点" class="headerlink" title="4.2 安全基线实施关键点"></a>4.2 安全基线实施关键点</h3><h4 id="4-2-1-身份认证安全基线"><a href="#4-2-1-身份认证安全基线" class="headerlink" title="4.2.1 身份认证安全基线"></a>4.2.1 身份认证安全基线</h4><ul><li><strong>实施要点</strong>：<ul><li>强制使用多因素认证（MFA）</li><li>会话超时时间≤15分钟</li><li>登录失败次数限制（≤5次）</li><li>采用动态验证码，避免固定验证码</li></ul></li><li><strong>测试方法</strong>：<ul><li>模拟多次失败登录，验证锁定机制</li><li>测试会话超时功能</li><li>验证多因素认证流程</li></ul></li></ul><h4 id="4-2-2-数据传输安全基线"><a href="#4-2-2-数据传输安全基线" class="headerlink" title="4.2.2 数据传输安全基线"></a>4.2.2 数据传输安全基线</h4><ul><li><strong>实施要点</strong>：<ul><li>通信必须使用TLS 1.2+（禁用SSL 3.0、TLS 1.0）</li><li>实施证书固定，防止中间人攻击</li><li>重要数据传输采用国密算法（SM4）加密</li></ul></li><li><strong>测试方法</strong>：<ul><li>使用Wireshark抓包，验证通信是否加密</li><li>测试证书固定机制</li><li>验证国密算法在关键数据传输中的应用</li></ul></li></ul><h4 id="4-2-3-数据存储安全基线"><a href="#4-2-3-数据存储安全基线" class="headerlink" title="4.2.3 数据存储安全基线"></a>4.2.3 数据存储安全基线</h4><ul><li><strong>实施要点</strong>：<ul><li>敏感数据（身份证号、银行卡号等）必须加密存储</li><li>采用AES-256或SM4算法加密</li><li>无明文存储用户密码、敏感信息</li></ul></li><li><strong>测试方法</strong>：<ul><li>检查本地数据库、缓存中的数据存储方式</li><li>使用文件分析工具检查敏感数据是否加密</li><li>验证加密算法密钥管理机制</li></ul></li></ul><h2 id="五、安全基线持续改进机制"><a href="#五、安全基线持续改进机制" class="headerlink" title="五、安全基线持续改进机制"></a>五、安全基线持续改进机制</h2><h3 id="5-1-安全基线评估指标"><a href="#5-1-安全基线评估指标" class="headerlink" title="5.1 安全基线评估指标"></a>5.1 安全基线评估指标</h3><table><thead><tr><th>评估指标</th><th>目标值</th><th>评估频率</th><th>评估方法</th></tr></thead><tbody><tr><td>漏洞修复率（高危）</td><td>≥95%</td><td>每月</td><td>安全测试报告</td></tr><tr><td>安全基线符合率</td><td>≥90%</td><td>每季度</td><td>安全评估</td></tr><tr><td>防病毒客户端覆盖率</td><td>100%</td><td>每月</td><td>系统统计</td></tr><tr><td>安全事件响应时间</td><td>≤2小时</td><td>实时</td><td>安全事件管理系统</td></tr><tr><td>用户安全意识提升率</td><td>≥80%</td><td>每季度</td><td>用户调查</td></tr></tbody></table><h3 id="5-2-安全基线持续改进流程"><a href="#5-2-安全基线持续改进流程" class="headerlink" title="5.2 安全基线持续改进流程"></a>5.2 安全基线持续改进流程<img src="https://hqhmd.oss-cn-hongkong.aliyuncs.com/img/20250929142216491.png" alt="image-20250929142216256"></h3><h2 id="六、结语"><a href="#六、结语" class="headerlink" title="六、结语"></a>六、结语</h2><p>手机银行App安全基线建设是一个持续迭代的过程，必须基于全面的安全测试和漏洞评估。根据JR&#x2F;T 0191-2020《证券期货业软件测试指南 软件安全测试》，安全基线应覆盖系统分析、威胁分析、测试用例制定、测试执行与报告输出五个环节，并通过安全功能检查、代码安全测试、漏洞扫描、渗透测试、模糊测试五项核心测试技术来验证。</p><p>安全不是一次性的工作，而是需要持续监测、评估和改进的长期过程。只有将安全基线建设与日常开发流程深度融合，才能有效应对不断变化的安全威胁，确保金融证券行业App的安全稳定运行，切实维护用户资金安全和行业声誉。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 信息安全 </category>
+          
+          <category> 金融科技 </category>
+          
+          <category> 移动安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 手机银行 </tag>
+            
+            <tag> 安全基线 </tag>
+            
+            <tag> 漏洞评估 </tag>
+            
+            <tag> 信息安全测试 </tag>
+            
+            <tag> JR/T 0191-2020 </tag>
             
         </tags>
       
